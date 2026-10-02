@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>刀哥 正品包邮 - 淘宝网</title>
+<meta name="description" content="刀哥 正品包邮，现货秒发，本人亲自发货。不是林睿彬。">
+<meta name="theme-color" content="#ff5000">
+<link rel="preload" as="image" href="cover.jpg">
+<link rel="preload" as="image" href="cover2.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff5000'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>刀</text></svg>">
+<style>
+:root{
+  --tb:#ff5000;
+  --tb-d:#f22e00;
+  --price:#ff0036;
+  --bg:#f5f5f5;
+  --card:#fff;
+  --line:#eee;
+  --txt:#333;
+  --sub:#999;
+  --radius:10px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:14px;
+  line-height:1.6;
+  overflow-x:hidden;
+  padding-bottom:76px;
+}
+img{display:block;max-width:100%;-webkit-user-drag:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ============ 顶部 ============ */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:linear-gradient(180deg,#ff6a00,#ff5000);
+  color:#fff;
+  box-shadow:0 2px 10px rgba(255,80,0,.25);
+}
+.topbar-in{
+  max-width:1180px;margin:0 auto;padding:8px 12px;
+  display:flex;align-items:center;gap:12px;
+}
+.logo{
+  font-weight:900;font-size:20px;letter-spacing:1px;
+  white-space:nowrap;display:flex;align-items:baseline;gap:4px;
+  text-shadow:0 1px 0 rgba(0,0,0,.15);
+}
+.logo small{font-size:9px;font-weight:400;opacity:.85;letter-spacing:0}
+.search{
+  flex:1;display:flex;min-width:0;
+  background:#fff;border-radius:999px;overflow:hidden;
+  border:2px solid #ffb100;
+}
+.search input{
+  flex:1;min-width:0;border:0;outline:0;padding:7px 14px;font-size:13px;color:#333;
+}
+.search button{
+  background:linear-gradient(90deg,#ff9000,#ff5000);color:#fff;
+  padding:0 18px;font-size:13px;font-weight:700;
+}
+.top-links{
+  display:flex;gap:12px;font-size:12px;white-space:nowrap;opacity:.95;
+}
+.top-links span{cursor:pointer}
+.top-links .cart b{color:#ffe600}
+@media(max-width:820px){
+  .top-links{display:none}
+  .logo{font-size:16px}
+}
+
+/* 跑马灯 */
+.marquee{
+  background:#fff8e1;color:#8a5a00;font-size:12px;
+  border-bottom:1px solid #ffe8a3;overflow:hidden;white-space:nowrap;
+}
+.marquee div{display:inline-block;padding:5px 0;animation:mar 26s linear infinite}
+@keyframes mar{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* 秒杀条 */
+.flash{
+  max-width:1180px;margin:10px auto 0;padding:0 12px;
+}
+.flash-in{
+  background:linear-gradient(90deg,#ff2d55,#ff5000,#ff9000);
+  background-size:200% 100%;
+  animation:hue 6s linear infinite;
+  color:#fff;border-radius:var(--radius);
+  padding:8px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  box-shadow:0 4px 14px rgba(255,60,0,.28);
+}
+@keyframes hue{from{background-position:0 0}to{background-position:200% 0}}
+.flash b{font-size:15px;letter-spacing:1px}
+.flash .cd{display:flex;gap:4px;align-items:center;font-size:12px}
+.flash .cd i{
+  background:rgba(0,0,0,.32);border-radius:4px;padding:2px 6px;
+  font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.flash .sold{margin-left:auto;font-size:12px;opacity:.95}
+.flash .sold b{color:#fff600;font-size:14px}
+
+/* ============ 布局 ============ */
+.wrap{max-width:1180px;margin:12px auto;padding:0 12px}
+.card{background:var(--card);border-radius:var(--radius);padding:16px}
+.grid{display:grid;grid-template-columns:420px 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+/* ============ 图集 ============ */
+.gallery{position:sticky;top:64px}
+@media(max-width:900px){.gallery{position:static}}
+.stage{
+  position:relative;width:100%;aspect-ratio:1/1;background:#fff;
+  border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+}
+.stage img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  transition:opacity .5s ease, transform .5s ease;
+}
+.stage img.alt{opacity:0}
+.stage.swap img.alt{opacity:1}
+.stage.swap img.main{opacity:0}
+.stage .badges{
+  position:absolute;left:8px;top:8px;display:flex;flex-direction:column;gap:5px;z-index:3;
+}
+.stage .badges span{
+  background:rgba(255,80,0,.92);color:#fff;font-size:11px;
+  padding:2px 7px;border-radius:4px;backdrop-filter:blur(2px);
+}
+.stage .badges span.g{background:rgba(0,170,90,.92)}
+.stage .badges span.k{background:rgba(0,0,0,.7)}
+/* 图集弹幕 */
+.dm{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.dm b{
+  position:absolute;left:100%;white-space:nowrap;font-size:12px;font-weight:600;
+  color:#fff;background:rgba(0,0,0,.42);padding:2px 9px;border-radius:999px;
+  animation:dmr linear infinite;
+}
+@keyframes dmr{from{transform:translateX(0)}to{transform:translateX(calc(-100% - 110vw))}}
+.thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.thumbs button{
+  width:66px;height:66px;border-radius:8px;overflow:hidden;
+  border:2px solid transparent;background:#fff;padding:0;flex:0 0 auto;
+}
+.thumbs button.on{border-color:var(--tb);box-shadow:0 0 0 2px rgba(255,80,0,.15)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* ============ 商品信息 ============ */
+.pricebox{
+  background:linear-gradient(120deg,#fff4ec,#ffe9dc 60%,#ffe2d0);
+  border-radius:var(--radius);padding:14px 16px;position:relative;overflow:hidden;
+}
+.pricebox::after{
+  content:"刀";position:absolute;right:6px;bottom:-32px;font-size:110px;font-weight:900;
+  color:rgba(255,80,0,.07);pointer-events:none;
+}
+.p-row{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.now{color:var(--price);font-weight:900;font-size:34px;line-height:1}
+.now i{font-size:18px;font-style:normal;margin-right:2px}
+.now em{font-size:18px;font-style:normal}
+.old{color:var(--sub);text-decoration:line-through;font-size:13px}
+.disc{background:var(--price);color:#fff;font-size:11px;padding:1px 6px;border-radius:3px}
+.p-meta{display:flex;gap:18px;margin-top:8px;font-size:12px;color:#8a6a5a;flex-wrap:wrap;position:relative;z-index:1}
+.p-meta b{color:var(--price);font-size:13px}
+
+h1.title{
+  font-size:21px;line-height:1.45;margin:14px 0 6px;font-weight:800;color:#222;
+}
+h1.title .tag{
+  display:inline-block;background:#ff5000;color:#fff;font-size:12px;
+  padding:1px 6px;border-radius:4px;vertical-align:middle;margin-right:6px;font-weight:700;
+}
+h1.title mark{background:linear-gradient(transparent 58%, #ffe066 58%);color:#222}
+.subline{color:#8a8a8a;font-size:13px;margin-bottom:12px}
+.subline b{color:var(--price)}
+
+.coupon{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  border:1px dashed #ffb08a;background:#fff8f4;border-radius:8px;
+  padding:8px 10px;font-size:12px;margin-bottom:12px;
+}
+.coupon .cp{background:linear-gradient(90deg,#ff5000,#ff2d55);color:#fff;border-radius:4px;padding:2px 8px;font-weight:700}
+.coupon .more{margin-left:auto;color:var(--tb)}
+
+.opt{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.opt .lb{color:var(--sub);flex:0 0 58px;padding-top:4px}
+.opt .vals{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.chip{
+  border:1px solid #ddd;background:#fff;border-radius:6px;
+  padding:4px 12px;font-size:13px;color:#333;transition:.15s;
+}
+.chip:hover{border-color:var(--tb);color:var(--tb)}
+.chip.on{border-color:var(--tb);background:#fff3ec;color:var(--tb);font-weight:700;box-shadow:0 0 0 1px var(--tb) inset}
+.chip.dis{color:#c9c9c9;border-color:#eee;background:#fafafa;text-decoration:line-through;cursor:not-allowed}
+.qty{display:inline-flex;border:1px solid #ddd;border-radius:6px;overflow:hidden}
+.qty button{width:30px;height:30px;font-size:16px;line-height:1;color:#666;background:#fafafa}
+.qty button:active{background:#f0f0f0}
+.qty input{width:48px;border:0;border-left:1px solid #ddd;border-right:1px solid #ddd;text-align:center;font-size:13px;outline:0}
+.stockline{font-size:12px;color:#ff5000;margin-left:10px;align-self:center}
+.serv{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#666;padding-top:10px;border-top:1px solid var(--line)}
+.serv span::before{content:"✓";color:#00a25a;font-weight:900;margin-right:4px}
+
+/* 店铺卡 */
+.shop{
+  margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);padding:12px;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+}
+.shop .av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #ffe0cf}
+.shop .nm{font-weight:800;font-size:15px;display:flex;align-items:center;gap:6px}
+.shop .nm i{background:#ff5000;color:#fff;font-size:10px;font-style:normal;padding:1px 5px;border-radius:3px}
+.shop .sc{font-size:12px;color:#999;margin-top:2px}
+.shop .sc b{color:var(--price)}
+.shop .go{margin-left:auto;border:1px solid var(--tb);color:var(--tb);border-radius:999px;padding:5px 14px;font-size:12px}
+
+/* 参数 */
+.params{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0 16px;margin-top:14px;font-size:13px}
+.params div{display:flex;padding:6px 0;border-bottom:1px dashed #f0f0f0}
+.params div b{color:var(--sub);font-weight:400;flex:0 0 76px}
+.params div span{color:#333}
+
+/* ============ 评价 ============ */
+.sec{margin-top:16px}
+.sec-h{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sec-h h2{margin:0;font-size:17px;font-weight:800}
+.sec-h .rate{font-size:13px;color:var(--sub)}
+.sec-h .rate b{color:var(--price);font-size:15px}
+.bar{width:120px;height:8px;background:#eee;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff9000,#ff0036);border-radius:99px;transition:width 1.6s cubic-bezier(.2,.9,.3,1)}
+.rtags{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.rtags button{border-radius:999px;padding:4px 13px;font-size:12px;background:#f5f5f5;color:#555}
+.rtags button.on{background:#fff3ec;color:var(--tb);font-weight:700;box-shadow:0 0 0 1px var(--tb) inset}
+
+.rv{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f4f4f4}
+.rv .av{
+  width:38px;height:38px;border-radius:50%;flex:0 0 38px;display:grid;place-items:center;
+  color:#fff;font-weight:800;font-size:15px;user-select:none;
+}
+.rv .bd{flex:1;min-width:0}
+.rv .hd{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub);flex-wrap:wrap}
+.rv .hd .un{color:#576b95;font-weight:600}
+.rv .stars{color:#ff9500;letter-spacing:1px;font-size:12px}
+.rv .stars.bad{color:#c9c9c9}
+.rv .lv{background:#f5f5f5;border-radius:3px;padding:0 5px;font-size:10px}
+.rv .txt{margin:6px 0 0;font-size:14px;color:#222;word-break:break-word}
+.rv .txt.bad{color:#d40000;font-weight:700;font-size:15px}
+.rv .pics{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.rv .pics img{width:74px;height:74px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.rv .rep{margin-top:8px;background:#fafafa;border-radius:6px;padding:7px 10px;font-size:12px;color:#666}
+.rv .rep b{color:#222}
+.rv .foot{margin-top:6px;font-size:12px;color:#bbb;display:flex;gap:14px;flex-wrap:wrap}
+.more-btn{
+  width:100%;margin-top:14px;border:1px solid var(--line);border-radius:999px;
+  padding:9px;color:#666;font-size:13px;background:#fafafa;
+}
+
+/* 详情 */
+.detail{text-align:center}
+.detail img{width:100%;max-width:760px;margin:0 auto;border-radius:8px}
+.detail p{color:#666;font-size:13px;margin:10px auto;max-width:640px}
+
+/* ============ 底部购买栏 ============ */
+.bottom{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -4px 18px rgba(0,0,0,.07);
+}
+.bottom-in{
+  max-width:1180px;margin:0 auto;padding:8px 12px;
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:calc(8px + env(safe-area-inset-bottom));
+}
+.icobtn{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#666;gap:2px;padding:0 6px;min-width:52px}
+.icobtn span.e{font-size:19px;line-height:1}
+.icobtn.act{color:var(--tb)}
+.buy{margin-left:auto;display:flex;border-radius:999px;overflow:hidden;flex:1;max-width:340px}
+.buy button{flex:1;padding:12px 0;font-size:15px;font-weight:800;color:#fff}
+.buy .add{background:linear-gradient(90deg,#ffb100,#ff9000)}
+.buy .now2{background:linear-gradient(90deg,#ff5000,#ff0036)}
+.buy button:active{filter:brightness(.93)}
+
+/* ============ 购买弹层 ============ */
+.mask{
+  position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.5);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.mask.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;left:50%;bottom:0;transform:translate(-50%,102%);z-index:81;
+  width:100%;max-width:560px;max-height:92vh;overflow:auto;
+  background:#f5f5f5;border-radius:16px 16px 0 0;
+  transition:transform .34s cubic-bezier(.2,.9,.3,1);
+  box-shadow:0 -10px 40px rgba(0,0,0,.25);
+}
+.sheet.on{transform:translate(-50%,0)}
+.sh-head{
+  position:sticky;top:0;z-index:5;background:#fff;
+  display:flex;align-items:center;padding:13px 16px;border-bottom:1px solid var(--line);
+  border-radius:16px 16px 0 0;
+}
+.sh-head h3{margin:0;font-size:16px;font-weight:800}
+.sh-head .x{margin-left:auto;font-size:20px;color:#bbb;padding:0 4px}
+.sh-body{padding:12px}
+.box{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px}
+.box h4{margin:0 0 10px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}
+.box h4 i{background:#fff3ec;color:var(--tb);font-style:normal;font-size:11px;padding:1px 6px;border-radius:4px;font-weight:700}
+
+.prod{display:flex;gap:12px}
+.prod .pic{width:96px;height:96px;border-radius:10px;overflow:hidden;flex:0 0 96px;background:#fafafa;position:relative}
+.prod .pic img{width:100%;height:100%;object-fit:cover}
+.prod .inf{flex:1;min-width:0}
+.prod .inf p{margin:0 0 6px;font-size:13px;color:#333;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod .inf .sk{font-size:12px;color:#999}
+.prod .inf .pr{margin-top:8px;color:var(--price);font-weight:900;font-size:19px}
+.prod .inf .pr small{font-size:11px;font-weight:400;color:#bbb;text-decoration:line-through;margin-left:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.addr{display:flex;gap:10px;align-items:flex-start;font-size:13px}.addr .pin{font-size:17px;line-height:1.2}
+.addr .who{font-weight:800}
+.addr .who span{font-weight:400;color:#666;margin-left:8px}
+.addr .loc{color:#666;margin-top:3px;font-size:12.5px}
+.addr .edit{margin-left:auto;color:#bbb;font-size:16px}
+
+.pay-tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.pay-tabs button{
+  flex:1;min-width:88px;border:1px solid #eee;border-radius:10px;padding:9px 6px;
+  font-size:12.5px;color:#666;background:#fafafa;display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.pay-tabs button.on{border-color:var(--tb);background:#fff3ec;color:var(--tb);font-weight:700;box-shadow:0 0 0 1px var(--tb) inset}
+.qrwrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+.qr{
+  position:relative;width:176px;height:176px;padding:8px;background:#fff;
+  border:1px solid var(--line);border-radius:10px;flex:0 0 auto;
+}
+.qr img{width:100%;height:100%;image-rendering:pixelated;opacity:.92}
+.qr::before{
+  content:"";position:absolute;left:10px;right:10px;height:2px;
+  background:linear-gradient(90deg,transparent,#ff0036,transparent);
+  box-shadow:0 0 8px #ff0036;animation:scan 2.4s ease-in-out infinite;
+}
+@keyframes scan{0%{top:12px}50%{top:160px}100%{top:12px}}
+.qr::after{
+  content:"占位";position:absolute;right:-6px;top:-8px;background:#333;color:#fff;
+  font-size:10px;padding:1px 6px;border-radius:99px;
+}
+.qrside{flex:1;min-width:190px;text-align:left}
+.qrside .amt{color:var(--price);font-weight:900;font-size:26px;line-height:1.1}
+.qrside .amt i{font-size:15px;font-style:normal}
+.qrside p{margin:8px 0 0;font-size:12.5px;color:#666}
+.qrside .paycd{margin-top:10px;font-size:12px;color:#999}
+.qrside .paycd b{color:var(--price);font-variant-numeric:tabular-nums}
+.tip{font-size:11.5px;color:#aaa;margin-top:10px;line-height:1.7}
+.sh-foot{
+  position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;gap:12px;
+}
+.sh-foot .sum{font-size:12px;color:#999}
+.sh-foot .sum b{color:var(--price);font-size:18px;font-weight:900;display:block;line-height:1.2}
+.sh-foot button.go{
+  margin-left:auto;background:linear-gradient(90deg,#ff5000,#ff0036);color:#fff;
+  border-radius:999px;padding:12px 34px;font-size:15px;font-weight:800;
+  box-shadow:0 6px 18px rgba(255,0,54,.3);
+}
+.sh-foot button.go:disabled{opacity:.6;box-shadow:none}
+
+.done{text-align:center;padding:8px 0 4px}
+.done .ok{
+  width:64px;height:64px;margin:6px auto 12px;border-radius:50%;
+  background:linear-gradient(135deg,#00c853,#00a25a);color:#fff;font-size:34px;
+  display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,200,83,.35);
+  animation:pop .5s cubic-bezier(.2,1.6,.4,1) both;
+}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.done h3{margin:0 0 6px;font-size:19px;font-weight:900}
+.done p{margin:0;color:#888;font-size:12.5px}
+.orderbox{text-align:left;font-size:12.5px;margin-top:14px}
+.orderbox div{display:flex;padding:5px 0;border-bottom:1px dashed #f0f0f0}
+.orderbox div b{color:#999;font-weight:400;flex:0 0 82px}
+.orderbox div span{color:#333;word-break:break-all}
+
+/* ============ 飞出层 ============ */
+.fly{
+  position:fixed;inset:0;z-index:200;pointer-events:none;
+  opacity:0;transition:opacity .3s;
+}
+.fly.on{opacity:1;pointer-events:auto}
+.fly .bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(20,0,0,.35),rgba(0,0,0,.78))}
+.fly .it{position:fixed;left:0;top:0;pointer-events:none;will-change:transform,opacity}
+.fly .it img{width:100%;height:auto;animation:wob 2.6s ease-in-out infinite alternate;filter:drop-shadow(0 10px 22px rgba(0,0,0,.5))}
+@keyframes wob{from{transform:rotate(-3deg) translateY(-4px)}to{transform:rotate(3deg) translateY(4px)}}
+.fly .it{animation:flyout 1s cubic-bezier(.16,.9,.3,1) both}
+@keyframes flyout{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.04) rotate(0deg)}
+  12%{opacity:1}
+  100%{opacity:1;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(var(--sc)) rotate(var(--rot))}
+}
+
+/* ============ 杂项 ============ */
+.float-kf{
+  position:fixed;right:14px;bottom:92px;z-index:65;display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+}
+.float-kf .bub{
+  background:#fff;border-radius:12px 12px 2px 12px;padding:9px 12px;font-size:12.5px;color:#333;
+  box-shadow:0 6px 22px rgba(0,0,0,.14);max-width:200px;opacity:0;transform:translateY(6px);
+  transition:.25s;pointer-events:none;border:1px solid #f0f0f0;
+}
+.float-kf .bub.on{opacity:1;transform:none}
+.float-kf .av{
+  width:54px;height:54px;border-radius:50%;overflow:hidden;border:3px solid #fff;
+  box-shadow:0 6px 20px rgba(0,0,0,.22);background:#fff;cursor:pointer;position:relative;
+}
+.float-kf .av img{width:100%;height:100%;object-fit:cover}
+.float-kf .av::after{
+  content:"";position:absolute;right:2px;top:2px;width:11px;height:11px;border-radius:50%;
+  background:#00c853;border:2px solid #fff;animation:blink 1.4s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+.toast{
+  position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);
+  background:rgba(0,0,0,.84);color:#fff;border-radius:10px;padding:12px 20px;
+  font-size:13.5px;z-index:300;opacity:0;pointer-events:none;transition:.22s;max-width:80vw;text-align:center;
+  line-height:1.6;
+}
+.toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+.ices{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.ices img{
+  position:absolute;top:-16vh;opacity:.16;
+  animation:fall linear infinite;
+  -webkit-user-drag:none;user-select:none;will-change:transform;
+}
+@keyframes fall{to{transform:translateY(132vh) rotate(360deg)}}
+
+.shake{animation:shk .5s cubic-bezier(.36,.07,.19,.97) both}@keyframes shk{
+  10%,90%{transform:translateX(-3px)}
+  20%,80%{transform:translateX(5px)}
+  30%,50%,70%{transform:translateX(-8px)}
+  40%,60%{transform:translateX(8px)}
+}
+footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;font-size:11.5px;text-align:center;line-height:2}
+
+/* 减弱动效偏好 */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .ices{display:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="logo">淘宝网<small>Taobao.com</small></div>
+    <div class="search">
+      <input id="kw" value="刀哥" placeholder="搜索宝贝">
+      <button id="searchBtn">搜索</button>
+    </div>
+    <div class="top-links">
+      <span onclick="toast('亲，你已经是刀哥的人了')">亲，请登录</span>
+      <span onclick="toast('注册即送刀哥一只（数量有限）')">免费注册</span>
+      <span onclick="toast('我的淘宝：空空如也，只有刀哥')">我的淘宝</span>
+      <span class="cart" onclick="toast('购物车(99/99)<br><b>已满</b>：全部是刀哥')">购物车<b>(99)</b></span>
+    </div>
+  </div>
+</div>
+
+<div class="marquee">
+  <div id="marquee"></div>
+</div>
+
+<div class="flash">
+  <div class="flash-in">
+    <b>⚡ 限时秒杀</b>
+    <span class="cd">距结束
+      <i id="cd-h">00</i>:<i id="cd-m">00</i>:<i id="cd-s">00</i>
+    </span>
+    <span class="sold">已抢 <b id="soldNum">233333</b> 件 · 库存 <b>1</b> 件</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="grid">
+
+    <!-- 图集 -->
+    <div class="card gallery">
+      <div class="stage" id="stage">
+        <div class="badges">
+          <span>假一赔十</span>
+          <span class="g">7天无理由</span>
+          <span class="k">非林睿彬</span>
+        </div>
+        <div class="dm" id="dm"></div>
+        <img class="main" id="mainImg" src="cover.jpg" alt="刀哥">
+        <img class="alt" id="mainImg2" src="cover2.jpg" alt="刀哥（购买界面专用封面）">
+      </div>
+      <div class="thumbs" id="thumbs">
+        <button class="on" data-src="cover.jpg"><img src="cover.jpg" alt=""></button>
+        <button data-src="p1.jpg"><img src="p1.jpg" alt=""></button>
+        <button data-src="p2.jpg"><img src="p2.jpg" alt=""></button>
+        <button data-src="p3.jpg"><img src="p3.jpg" alt=""></button>
+      </div>
+    </div>
+
+    <!-- 商品信息 -->
+    <div>
+      <div class="card">
+        <div class="pricebox">
+          <div class="p-row">
+            <div class="now"><i>¥</i><em id="priceNum">0.01</em></div>
+            <div class="old">¥999999.00</div>
+            <div class="disc">骨折价</div>
+          </div>
+          <div class="p-meta">
+            <span>月销 <b id="soldNum2">233333</b> 件</span>
+            <span>累计评价 <b>23333</b> 条</span>
+            <span>好评率 <b>99.9999%</b></span>
+            <span>快递 <b>刀哥亲自送</b></span>
+          </div>
+        </div>
+
+        <h1 class="title">
+          <span class="tag">刀哥官方</span>刀哥 正品包邮 现货秒发 <mark>本人亲自发货</mark>
+          不是林睿彬 不是林睿彬 不是林睿彬 重要的事情说三遍
+        </h1>
+        <div class="subline">
+          本店承诺：<b>所售商品均为刀哥本人</b>，如收到林睿彬请立刻联系客服（客服也是刀哥）
+        </div>
+
+        <div class="coupon">
+          <span class="cp">满0.01减0.01</span>
+          <span class="cp">刀哥专属券</span>
+          <span>领券后到手价 ¥0.00</span>
+          <span class="more" onclick="toast('已领取「刀哥专属券」<br>抵扣 ¥0.01，实付 ¥0.00')">立即领取 ›</span>
+        </div>
+
+        <div class="opt">
+          <div class="lb">颜色</div>
+          <div class="vals" id="optColor">
+            <button class="chip on">刀哥（标准版）</button>
+            <button class="chip">刀哥 Pro Max</button>
+            <button class="chip">🧊 冰镇版</button>
+            <button class="chip dis">林睿彬（已下架）</button>
+          </div>
+        </div>
+
+        <div class="opt">
+          <div class="lb">规格</div>
+          <div class="vals" id="optSize">
+            <button class="chip on">一只</button>
+            <button class="chip">半只</button>
+            <button class="chip">一打</button>
+            <button class="chip">一车</button>
+          </div>
+        </div>
+
+        <div class="opt">
+          <div class="lb">数量</div>
+          <div class="vals" style="align-items:center">
+            <div class="qty">
+              <button id="minus">−</button>
+              <input id="qty" value="1" inputmode="numeric">
+              <button id="plus">＋</button>
+            </div>
+            <span class="stockline" id="stockline">仅剩 1 件（已被刀哥本人锁定）</span>
+          </div>
+        </div>
+
+        <div class="serv">
+          <span>包邮</span><span>运费险</span><span>极速退款</span><span>假一赔十</span><span>7天无理由</span><span>支持花呗</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="shop">
+          <img class="av" src="cover.jpg" alt="店铺头像">
+          <div>
+            <div class="nm">刀哥官方旗舰店 <i>金牌卖家</i></div>
+            <div class="sc">描述相符 <b>5.0</b> · 服务态度 <b>5.0</b> · 物流服务 <b>5.0</b> · 高于同行 100%</div>
+          </div>
+          <button class="go" onclick="toast('已进入「刀哥官方旗舰店」<br>本店仅售 1 件商品：刀哥')">进店逛逛</button>
+        </div>
+
+        <div class="params">
+          <div><b>品牌</b><span>刀哥</span></div>
+          <div><b>型号</b><span>DG-001</span></div>
+          <div><b>材质</b><span>刀哥</span></div>
+          <div><b>产地</b><span>刀哥家</span></div>
+          <div><b>净含量</b><span>1 刀哥</span></div>
+          <div><b>保质期</b><span>永久</span></div>
+          <div><b>适用人群</b><span>所有人（除林睿彬）</span></div>
+          <div><b>发货地</b><span>刀哥省 刀哥市 刀哥区</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 评价 -->
+  <div class="card sec">
+    <div class="sec-h">
+      <h2>宝贝评价</h2>
+      <span class="rate">好评率 <b>99.9999%</b></span>
+      <div class="bar"><i id="rateBar"></i></div>
+      <span class="rate">共 <b>23333</b> 条评价</span>
+    </div>
+
+    <div class="rtags" id="rtags">
+      <button class="on">全部(23333)</button>
+      <button>🧊(23330)</button>
+      <button>质量很好(1)</button>
+      <button>不是林睿彬(1)</button>
+      <button>发货快(0)</button>
+      <button>有内鬼(1)</button>
+    </div>
+
+    <div id="reviews"></div>
+
+    <button class="more-btn" onclick="toast('已加载更多评价<br>……剩余 23326 条均为「🧊🧊🧊」')">查看全部 23333 条评价 ›</button>
+  </div>
+
+  <!-- 详情 -->
+  <div class="card sec detail">
+    <div class="sec-h"><h2>图文详情</h2><span class="rate">刀哥，值得拥有</span></div>
+    <div style="height:12px"></div>
+    <img src="p1.jpg" alt="详情1" loading="lazy" decoding="async">
+    <p>【产品实拍】刀哥本人。拍摄于刀哥家。未经任何美颜处理，因为刀哥不需要。</p>
+    <img src="p2.jpg" alt="详情2" loading="lazy" decoding="async">
+    <p>【使用场景】刀哥蹲在家中，即可发挥全部性能。无需充电，无需联网，无需喂食。</p>
+    <img src="p3.jpg" alt="详情3" loading="lazy" decoding="async">
+    <p>【注意事项】请勿与林睿彬同处一室，否则可能发生不可描述的事件。</p>
+    <img src="cover.jpg" alt="详情4" loading="lazy" decoding="async">
+    <p>【售后保障】如对商品不满意，可申请退款，但刀哥会一直看着你。</p>
+  </div>
+</div>
+
+<footer class="site">
+  淘宝网 · 本页面为个人娱乐作品，与任何真实商家、平台无关，所涉人物均为虚构（大概）<br>
+  刀哥官方旗舰店 版权所有 · 本店不接受任何关于「林睿彬」的投诉
+</footer>
+
+<!-- 客服 -->
+<div class="float-kf">
+  <div class="bub" id="kfBub">在的亲，需要刀哥还是林睿彬？</div>
+  <div class="av" id="kfAv" role="button" tabindex="0" aria-label="刀哥客服"><img src="cover.jpg" alt="客服"></div>
+</div>
+
+<!-- 底部栏 -->
+<div class="bottom">
+  <div class="bottom-in">
+    <button class="icobtn" id="kfBtn" aria-label="联系客服"><span class="e">💬</span>客服</button>
+    <button class="icobtn" id="favBtn" aria-label="收藏商品"><span class="e">☆</span>收藏</button>
+    <button class="icobtn" aria-label="购物车" onclick="toast('购物车(99/99)<br><b>已满</b>：全部是刀哥')"><span class="e">🛒</span>购物车</button>
+    <div class="buy">
+      <button class="add" id="addCart">加入购物车</button>
+      <button class="now2" id="buyNow">立即购买</button>
+    </div>
+  </div>
+</div>
+
+<!-- 购买弹层 -->
+<div class="mask" id="mask"></div>
+<div class="sheet" id="sheet">
+  <div class="sh-head">
+    <h3 id="shTitle">确认订单</h3>
+    <button class="x" id="shClose">✕</button>
+  </div>
+
+  <!-- 步骤1：确认订单 -->
+  <div id="step1">
+    <div class="sh-body">
+      <div class="box">
+        <div class="prod">
+          <div class="pic">
+            <img src="cover2.jpg" alt="刀哥">
+          </div>
+          <div class="inf">
+            <p>刀哥 正品包邮 现货秒发 本人亲自发货 不是林睿彬</p>
+            <div class="sk">颜色：<span id="skColor">刀哥（标准版）</span> · 规格：<span id="skSize">一只</span></div>
+            <div class="pr">¥0.01<small>¥999999.00</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h4>收货地址 <i>默认</i></h4>
+        <div class="addr">
+          <span class="pin">📍</span>
+          <div>
+            <div class="who">刀哥 <span>138****8888</span></div>
+            <div class="loc">刀哥省 刀哥市 刀哥区 刀哥路 1 号 刀哥小区 1 栋 1 单元 101（门口有刀哥）</div>
+          </div>
+          <span class="edit">›</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h4>订单备注</h4>
+        <div class="chips">
+          <button class="chip on">请勿发林睿彬</button>
+          <button class="chip">多放点🧊</button>
+          <button class="chip">放门口别敲门</button>
+          <button class="chip">让刀哥本人来</button>
+        </div>
+        <input id="remark" placeholder="备注（客服会认真看，然后忘记）"
+          style="width:100%;border:1px solid #eee;border-radius:8px;padding:9px 12px;font-size:13px;outline:0;color:#333">
+      </div>
+    </div>
+    <div class="sh-foot">
+      <div class="sum">合计<b>¥<span id="total1">0.01</span></b></div>
+      <button class="go" id="toPay">提交订单</button>
+    </div>
+  </div>
+
+  <!-- 步骤2：支付 -->
+  <div id="step2" style="display:none">
+    <div class="sh-body">
+      <div class="box">
+        <h4>支付方式 <i>扫码支付</i></h4>
+        <div class="pay-tabs" id="payTabs">
+          <button class="on">💚 微信支付</button>
+          <button>💙 支付宝</button>
+          <button>🌸 花呗</button>
+          <button>🔪 刀哥支付</button>
+        </div>
+        <div class="qrwrap">
+          <div class="qr"><img src="qrcode.png" alt="收款二维码占位"></div>
+          <div class="qrside">
+            <div class="amt"><i>¥</i><span id="total2">0.01</span></div>
+            <p>请使用手机扫描左侧二维码完成支付</p>
+            <p class="paycd">支付剩余时间 <b id="payCd">04:59</b></p>
+            <p style="color:#d40000;font-weight:700;margin-top:8px">⚠️ 收款方：刀哥（个人）</p>
+          </div>
+        </div>
+        <div class="tip">
+          · 二维码为占位图，扫不出任何东西，请勿当真<br>
+          · 本页面不会产生任何真实交易，也不会扣你一分钱<br>
+          · 如扫出「林睿彬」，请立即关闭页面并深呼吸
+        </div>
+      </div>
+    </div>
+    <div class="sh-foot">
+      <div class="sum">待支付<b>¥<span id="total3">0.01</span></b></div>
+      <button class="go" id="paid">我已完成支付</button>
+    </div>
+  </div>
+
+  <!-- 步骤3：成功 -->
+  <div id="step3" style="display:none">
+    <div class="sh-body">
+      <div class="box done">
+        <div class="ok">✓</div>
+        <h3>支付成功！</h3>
+        <p>刀哥已出库，正在以 2333 km/h 的速度飞向你</p>
+        <div class="orderbox">
+          <div><b>订单编号</b><span id="orderNo"></span></div>
+          <div><b>商品</b><span>刀哥 × 1（已确认不是林睿彬）</span></div>
+          <div><b>实付款</b><span style="color:#ff0036;font-weight:800">¥0.01</span></div>
+          <div><b>承运人</b><span>刀哥本人</span></div>
+          <div><b>预计送达</b><span>现在</span></div>
+          <div><b>收货人</b><span>刀哥（本人签收）</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sh-foot">
+      <div class="sum">实付<b>¥0.01</b></div>
+      <button class="go" id="flyBtn">查看刀哥飞出 🎉</button>
+    </div>
+  </div>
+</div>
+
+<!-- 飞出层 -->
+<div class="fly" id="fly">
+  <div class="bg"></div>
+</div>
+
+<div class="ices" id="ices"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- 工具 ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let toastTimer;
+function toast(html, ms){
+  const t = $('#toast');
+  t.innerHTML = html;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('on'), ms || 2000);
+}
+function rnd(a,b){ return a + Math.random()*(b-a); }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+/* ---------- 跑马灯 ---------- */
+const MARQ = [
+  '【公告】本店所有商品均为刀哥本人，如收到林睿彬请立即联系客服（客服也是刀哥）',
+  '【喜报】用户***8 刚刚抢到刀哥 × 1，用时 0.01 秒',
+  '【公告】🧊🧊🧊',
+  '【预警】检测到林睿彬正在靠近本店，已启动防御',
+  '【公告】今日秒杀：刀哥 1 件，先到先得，卖完不补',
+  '【喜报】刀哥官方旗舰店 连续 23333 天零差评（差评已被刀哥处理）'
+];
+$('#marquee').innerHTML = [...MARQ, ...MARQ].map(s=>'&nbsp;&nbsp;·&nbsp;&nbsp;'+s).join('');
+
+/* ---------- 秒杀倒计时 ---------- */
+let left = 2*3600 + 59*60 + 59;
+setInterval(()=>{
+  left = left > 0 ? left - 1 : 2*3600 + 59*60 + 59;
+  const h = String(Math.floor(left/3600)).padStart(2,'0');
+  const m = String(Math.floor(left%3600/60)).padStart(2,'0');
+  const s = String(left%60).padStart(2,'0');
+  $('#cd-h').textContent = h; $('#cd-m').textContent = m; $('#cd-s').textContent = s;
+}, 1000);
+
+/* ---------- 已抢数量跳动 ---------- */
+let sold = 233333;
+setInterval(()=>{
+  sold += Math.floor(rnd(1,9));
+  $('#soldNum').textContent = sold.toLocaleString();
+  $('#soldNum2').textContent = sold.toLocaleString();
+}, 900);
+
+/* ---------- 图集 ---------- */
+$('#thumbs').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  $$('#thumbs button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const img = $('#mainImg');
+  img.style.transform = 'scale(.96)';
+  setTimeout(()=>{ img.src = b.dataset.src; img.style.transform = ''; }, 120);
+});
+
+/* ---------- 图集弹幕 ---------- */
+const DM = ['这就是刀哥？','刀哥笑得好开心','林睿彬是谁','🧊🧊🧊','已下单，等我','这脸有点眼熟','为什么我看出了刀哥的温柔','买它！','卖家说是本人发货','刀哥：我谢谢你们'];
+function spawnDm(){
+  const box = $('#dm');
+  if(box.children.length > 6) return;
+  // 避免与已有弹幕在同一水平线上重叠
+  const used = [...box.children].map(el => parseFloat(el.style.top) || 0);
+  let top = 0;
+  for(let k=0;k<8;k++){
+    top = rnd(6, 88);
+    if(used.every(u => Math.abs(u - top) > 9)) break;
+  }
+  const b = document.createElement('b');
+  b.textContent = pick(DM);
+  b.style.top = top.toFixed(1) + '%';
+  b.style.animationDuration = rnd(7, 13) + 's';
+  b.style.fontSize = rnd(11, 14) + 'px';
+  box.appendChild(b);
+  setTimeout(()=>b.remove(), 14000);
+}
+setInterval(spawnDm, 1400);
+for(let i=0;i<3;i++) setTimeout(spawnDm, i*600);
+
+/* ---------- 规格选择 ---------- */
+function bindChips(sel, cb){
+  $(sel).addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    if(b.classList.contains('dis')){ toast('「林睿彬（已下架）」<br>该规格因众所周知的原因已停止销售'); return; }
+    $$(sel + ' button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    cb && cb(b.textContent.trim());
+  });
+}
+bindChips('#optColor', v=>{ $('#skColor').textContent = v; });
+bindChips('#optSize',  v=>{ $('#skSize').textContent  = v; });
+bindChips('#rtags');
+$('#payTabs').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  $$('#payTabs button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  toast('已切换为「' + b.textContent.trim() + '」<br>（其实都扫不出东西）', 1400);
+});
+document.querySelectorAll('.box .chips').forEach(wrap=>{
+  wrap.addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    [...wrap.children].forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+
+/* ---------- 数量 ---------- */
+const qtyEl = $('#qty');
+function syncQty(){
+  let v = Math.max(1, Math.min(999999, parseInt(qtyEl.value) || 1));
+  qtyEl.value = v;
+  const t = (v * 0.01).toFixed(2);
+  $('#total1').textContent = t; $('#total2').textContent = t; $('#total3').textContent = t;
+  if(v > 1) $('#stockline').textContent = '库存仅剩 1 件，多出的 ' + (v-1) + ' 件将由刀哥本人补齐';
+  else $('#stockline').textContent = '仅剩 1 件（已被刀哥本人锁定）';
+}
+$('#plus').onclick  = ()=>{ qtyEl.value = (parseInt(qtyEl.value)||1) + 1; syncQty(); };
+$('#minus').onclick = ()=>{ qtyEl.value = Math.max(1,(parseInt(qtyEl.value)||1) - 1); syncQty(); };
+qtyEl.oninput = syncQty;
+
+/* ---------- 好评率进度条 ---------- */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ $('#rateBar').style.width = '99.9999%'; io.disconnect(); } });
+}, {threshold:.4});
+io.observe($('#rateBar'));
+
+/* ---------- 评价数据 ---------- */
+const REVIEWS = [
+  {
+    name:'用户***8', color:'#ff6a00', lv:'V4 钻石买家', stars:1, bad:true,
+    txt:'我不是买的刀哥吗，为什么给我发林睿彬😡',
+    pics:['p2.jpg'],
+    rep:'追评：客服说「林睿彬是刀哥的赠品，不用退」，我更生气了😡😡😡',
+    date:'2026-09-30', sku:'颜色：刀哥（标准版）；规格：一只'
+  },
+  {
+    name:'冰镇西瓜🍉', color:'#00b3d6', lv:'V6 皇冠买家', stars:5,
+    txt:'🧊🧊🧊',
+    pics:['p3.jpg','p1.jpg'],
+    rep:'卖家回复：感谢亲的认可，🧊🧊🧊',
+    date:'2026-09-28', sku:'颜色：🧊 冰镇版；规格：一车'
+  },
+  {
+    name:'刀哥的刀', color:'#7b3fe4', lv:'V3 黄金买家', stars:5,
+    txt:'刀哥很锋利，削苹果的时候一不小心把隔壁邻居也削了。联系客服，客服态度非常好，二话不说又给我补发了两个邻居。五星好评，下次还来。',
+    pics:[],
+    rep:'卖家回复：亲，邻居是赠品，不用还的哦～',
+    date:'2026-09-25', sku:'颜色：刀哥 Pro Max；规格：一打'
+  },
+  {
+    name:'林睿彬本人', color:'#e02b2b', lv:'V2 白银买家', stars:2,
+    txt:'我买的是林睿彬，结果给我发了刀哥。差评。但是刀哥确实挺好用的，所以给两星。',
+    pics:['cover.jpg'],
+    rep:'卖家回复：本店不售林睿彬，您这个订单我怀疑是您自己下的。',
+    date:'2026-09-24', sku:'颜色：林睿彬（已下架）；规格：一只'
+  },
+  {
+    name:'隔壁老王', color:'#00a25a', lv:'V5 钻石买家', stars:5,
+    txt:'刀哥一响，黄金万两。自从家里摆了刀哥，WiFi 都变快了，隔壁的狗也不叫了，连我妈都开始夸我了。唯一的问题是刀哥一直在笑，有点渗人，但习惯了就好。',
+    pics:['p1.jpg'],
+    rep:'卖家回复：习惯就好，我们都习惯了。',
+    date:'2026-09-21', sku:'颜色：刀哥（标准版）；规格：一只'
+  },
+  {
+    name:'匿名用户', color:'#8a8a8a', lv:'V1 普通会员', stars:5,
+    txt:'快递三天到，开箱的时候刀哥还在笑，很满意。就是快递盒上写着「内有刀哥，轻拿轻放」，被邻居看到了，现在邻居也下单了。',
+    pics:[],
+    rep:'',
+    date:'2026-09-19', sku:'颜色：刀哥（标准版）；规格：半只'
+  },
+  {
+    name:'刀哥官方旗舰店', color:'#ff5000', lv:'卖家', stars:5,
+    txt:'我自己也买了一个，好用，好评。不是刷的。',
+    pics:[],
+    rep:'',
+    date:'2026-09-18', sku:'颜色：刀哥（标准版）；规格：一只'
+  }
+];
+function starStr(n){
+  return '★'.repeat(n) + '☆'.repeat(5-n);
+}
+$('#reviews').innerHTML = REVIEWS.map(r=>`
+  <div class="rv">
+    <div class="av" style="background:${r.color}">${r.name.slice(0,1)}</div>
+    <div class="bd">
+      <div class="hd">
+        <span class="un">${r.name}</span>
+        <span class="lv">${r.lv}</span>
+        <span class="stars ${r.bad?'bad':''}">${starStr(r.stars)}</span>
+        <span>${r.date}</span>
+      </div>
+      <p class="txt ${r.bad?'bad':''}">${r.txt}</p>
+      ${r.pics.length ? `<div class="pics">${r.pics.map(p=>`<img src="${p}" alt="买家秀">`).join('')}</div>` : ''}
+      ${r.rep ? `<div class="rep">${r.rep}</div>` : ''}
+      <div class="foot"><span>${r.sku}</span><span>👍 ${Math.floor(rnd(1,999))}</span></div>
+    </div>
+  </div>
+`).join('');
+
+/* ---------- 客服 ---------- */
+const KF_LINES = [
+  '在的亲，需要刀哥还是林睿彬？',
+  '亲，林睿彬真的不是我们发的。',
+  '亲，刀哥是正品，假一赔十（赔十个刀哥）。',
+  '亲，🧊🧊🧊',
+  '亲，本店客服只有刀哥一个人，就是我。',
+  '亲，再不下单刀哥就要飞走了。'
+];
+let kfIdx = 0;
+function kfSay(){
+  const b = $('#kfBub');
+  b.textContent = KF_LINES[kfIdx++ % KF_LINES.length];
+  b.classList.add('on');
+  clearTimeout(kfSay.t);
+  kfSay.t = setTimeout(()=>b.classList.remove('on'), 3600);
+}
+$('#kfAv').onclick = kfSay;
+$('#kfBtn').onclick = kfSay;
+setTimeout(kfSay, 2600);
+setInterval(kfSay, 16000);
+
+/* ---------- 收藏 ---------- */
+let faved = false;
+$('#favBtn').onclick = ()=>{
+  faved = !faved;
+  $('#favBtn').classList.toggle('act', faved);
+  $('#favBtn').querySelector('.e').textContent = faved ? '★' : '☆';
+  toast(faved ? '已收藏<br>刀哥知道了，他正在看着你' : '已取消收藏<br>刀哥有点难过');
+};
+
+/* ---------- 加入购物车 ---------- */
+$('#addCart').onclick = ()=>{
+  toast('加入购物车失败<br><b>购物车已满（99/99）</b><br>全部都是刀哥', 2400);
+  $('#addCart').classList.add('shake');
+  setTimeout(()=>$('#addCart').classList.remove('shake'), 600);
+};
+
+/* ---------- 购买弹层 ---------- */
+const sheet = $('#sheet'), mask = $('#mask');
+function openSheet(){
+  mask.classList.add('on');
+  sheet.classList.add('on');
+  $('#stage').classList.add('swap');   // 封面 → 变换封面
+  document.body.style.overflow = 'hidden';
+}
+function closeSheet(){
+  mask.classList.remove('on');
+  sheet.classList.remove('on');
+  $('#stage').classList.remove('swap');
+  document.body.style.overflow = '';
+  setTimeout(()=>{ if(!$('#fly').classList.contains('on')) goStep(1); }, 340);
+}
+function goStep(n){
+  $('#step1').style.display = n===1 ? '' : 'none';
+  $('#step2').style.display = n===2 ? '' : 'none';
+  $('#step3').style.display = n===3 ? '' : 'none';
+  $('#shTitle').textContent = n===1 ? '确认订单' : n===2 ? '收银台' : '支付结果';
+  sheet.scrollTop = 0;
+}
+$('#buyNow').onclick = ()=>{ goStep(1); openSheet(); };
+$('#shClose').onclick = closeSheet;
+mask.onclick = closeSheet;
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeSheet(); closeFly(); } });
+
+$('#toPay').onclick = ()=>{
+  const btn = $('#toPay');
+  btn.disabled = true; btn.textContent = '提交中…';
+  setTimeout(()=>{
+    btn.disabled = false; btn.textContent = '提交订单';
+    goStep(2);
+    toast('订单已提交<br>请扫码支付 ¥' + $('#total2').textContent);
+    startPayCd();
+  }, 700);
+};
+
+/* 支付倒计时 */
+let payTimer = null;
+function startPayCd(){
+  clearInterval(payTimer);
+  let s = 299;
+  const tick = ()=>{
+    const m = String(Math.floor(s/60)).padStart(2,'0');
+    const ss = String(s%60).padStart(2,'0');
+    $('#payCd').textContent = m + ':' + ss;
+    if(s-- <= 0){ clearInterval(payTimer); $('#payCd').textContent = '已超时（但没关系）'; }
+  };
+  tick();
+  payTimer = setInterval(tick, 1000);
+}
+
+/* ---------- 支付成功 → 飞出 ---------- */
+$('#paid').onclick = ()=>{
+  const btn = $('#paid');
+  btn.disabled = true;
+  btn.textContent = '支付中…';
+  let i = 0;
+  const words = ['支付中…','正在核对刀哥身份…','正在排除林睿彬…','正在给刀哥装翅膀…','即将起飞…'];
+  const iv = setInterval(()=>{
+    btn.textContent = words[Math.min(i++, words.length-1)];
+  }, 420);
+  setTimeout(()=>{
+    clearInterval(iv);
+    btn.disabled = false; btn.textContent = '我已完成支付';
+    clearInterval(payTimer);
+    $('#orderNo').textContent = 'TB' + Date.now() + 'DG';
+    goStep(3);
+    setTimeout(()=>{ closeSheet(); setTimeout(launchFly, 380); }, 1100);
+  }, 2100);
+};
+
+/* ---------- 飞出 ---------- */
+const fly = $('#fly');
+let flySpawner = null;
+let flyOpenedAt = 0;
+function launchFly(){
+  fly.querySelectorAll('.it').forEach(el=>el.remove());
+  fly.classList.add('on');
+  flyOpenedAt = Date.now();
+  document.body.style.overflow = 'hidden';
+  const W = innerWidth, H = innerHeight;
+  const N = Math.min(140, Math.max(44, Math.round(W*H/13000)));
+
+  const frag = document.createDocumentFragment();
+  for(let i=0;i<N;i++){
+    const size = Math.round(rnd(80, 340));
+    const wrap = document.createElement('div');
+    wrap.className = 'it';
+    wrap.style.width = size + 'px';
+    wrap.style.left = (W/2) + 'px';
+    wrap.style.top  = (H/2) + 'px';
+    wrap.style.zIndex = String(1 + Math.round(size/10));
+    // 目标点：覆盖整屏并溢出边缘
+    const tx = rnd(-0.18*W, 1.18*W);
+    const ty = rnd(-0.18*H, 1.18*H);
+    wrap.style.setProperty('--dx', (tx - W/2) + 'px');
+    wrap.style.setProperty('--dy', (ty - H/2) + 'px');
+    wrap.style.setProperty('--rot', rnd(-380, 380).toFixed(0) + 'deg');
+    wrap.style.setProperty('--sc', rnd(.55, 1.25).toFixed(2));
+    wrap.style.animationDelay = (Math.random()*0.85).toFixed(2) + 's';
+
+    const img = document.createElement('img');
+    img.src = 'fly.png';
+    img.alt = '刀哥飞出';
+    img.style.animationDuration = rnd(1.8, 3.6).toFixed(2) + 's';
+    img.style.animationDelay = rnd(0, 1.2).toFixed(2) + 's';
+    wrap.appendChild(img);
+    frag.appendChild(wrap);
+  }
+  fly.appendChild(frag);
+
+  // 落地后持续补充，保持“覆盖整个页面”
+  clearInterval(flySpawner);
+  flySpawner = setInterval(()=>{
+    if(!fly.classList.contains('on')) return;
+    if(fly.querySelectorAll('.it').length > N + 40) return;
+    const size = Math.round(rnd(70, 300));
+    const wrap = document.createElement('div');
+    wrap.className = 'it';
+    wrap.style.width = size + 'px';
+    wrap.style.left = rnd(0,W) + 'px';
+    wrap.style.top  = rnd(-0.1*H, 1.05*H) + 'px';
+    wrap.style.setProperty('--dx','0px');
+    wrap.style.setProperty('--dy','0px');
+    wrap.style.setProperty('--rot', rnd(-40,40).toFixed(0) + 'deg');
+    wrap.style.setProperty('--sc','1');
+    wrap.style.animationDuration = '0.7s';
+    const img = document.createElement('img');
+    img.src = 'fly.png'; img.alt = '刀哥飞出';
+    img.style.animationDuration = rnd(2,4).toFixed(2) + 's';
+    wrap.appendChild(img);
+    fly.appendChild(wrap);
+  }, 320);
+
+  document.body.classList.add('shake');
+  setTimeout(()=>document.body.classList.remove('shake'), 600);
+}
+function closeFly(){
+  clearInterval(flySpawner);
+  fly.classList.remove('on');
+  setTimeout(()=>{ fly.querySelectorAll('.it').forEach(el=>el.remove()); }, 320);
+  document.body.style.overflow = '';
+}
+$('#flyBtn').onclick = ()=>{ closeSheet(); setTimeout(launchFly, 320); };
+// 点击任意位置收起飞出层
+fly.addEventListener('click', ()=>{
+  if(Date.now() - flyOpenedAt < 600) return;
+  closeFly();
+});
+
+/* ---------- 背景飘来飘去的刀哥 ---------- */
+(function ices(){
+  const box = $('#ices');
+  const N = innerWidth < 700 ? 9 : 16;
+  for(let i=0;i<N;i++){
+    const im = document.createElement('img');
+    im.src = 'head.png';
+    im.alt = '';
+    im.draggable = false;
+    im.style.left = rnd(-2, 98).toFixed(1) + '%';
+    im.style.width = rnd(22, 54).toFixed(0) + 'px';
+    im.style.opacity = rnd(.10, .22).toFixed(2);
+    im.style.animationDuration = rnd(15, 34).toFixed(1) + 's';
+    im.style.animationDelay = (-rnd(0, 30)).toFixed(1) + 's';
+    im.style.animationDirection = Math.random() < .35 ? 'reverse' : 'normal';
+    box.appendChild(im);
+  }
+})();
+
+/* 预加载飞出图，避免首次飞出时卡顿 */
+(function preload(){
+  const i = new Image();
+  i.src = 'fly.png';
+})();
+
+/* ---------- 搜索 ---------- */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function doSearch(){
+  const q = ($('#kw').value || '').trim();
+  if(!q){ toast('请输入点什么，比如「刀哥」'); return; }
+  if(q.indexOf('林睿彬') > -1){
+    toast('已自动为您过滤掉「林睿彬」<br>搜索结果：刀哥 ×233333');
+    return;
+  }
+  toast('搜索「' + esc(q) + '」<br>结果：刀哥 ×233333');
+}
+$('#searchBtn').onclick = doSearch;
+$('#kw').addEventListener('keydown', e=>{
+  if(e.key === 'Enter'){ e.preventDefault(); doSearch(); $('#kw').blur(); }
+});
+
+/* ---------- 初始化 ---------- */
+syncQty();
+</script>
+</body>
+</html>

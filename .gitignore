@@ -1,0 +1,10 @@
+# 本地 AI 工作目录（记忆、技能、缓存），不纳入版本管理
+.workbuddy-ai/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
