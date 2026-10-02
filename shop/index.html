@@ -422,6 +422,16 @@ h1.title mark{background:linear-gradient(transparent 58%, #ffe066 58%);color:#22
 .doc-body ol{margin:0;padding-left:20px}
 .doc-body li{margin-bottom:10px}
 .doc-body .sig{margin-top:16px;padding-top:12px;border-top:1px dashed #eee;text-align:right;color:#999;font-size:12.5px;line-height:1.8}
+.doc-body .annex{margin-top:18px;padding-top:14px;border-top:1px dashed #eee}
+.doc-body .annex h4{margin:0 0 6px;font-size:13.5px;color:#222}
+.doc-body .annex .note{margin:0 0 10px;font-size:12.5px;color:#8a8a8a;line-height:1.8}
+.doc-body .annex a{display:block;text-decoration:none}
+.doc-body .annex img{
+  width:100%;border:1px solid #e6e6e6;border-radius:8px;background:#fafafa;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);transition:box-shadow .2s, transform .2s;
+}
+.doc-body .annex a:hover img{box-shadow:0 6px 20px rgba(0,0,0,.14);transform:translateY(-1px)}
+.doc-body .annex .cap{margin:8px 0 0;font-size:12px;color:#aaa;text-align:center}
 .doc-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 .doc-foot button{
   width:100%;background:linear-gradient(90deg,#ff5000,#ff0036);color:#fff;
@@ -1120,10 +1130,19 @@ const DOCS = {
         <li>本人自愿放弃一切退款、退货、换货、补发、精神损害赔偿，以及「我要报警了」等一切救济权利。</li>
         <li>本协议最终解释权归刀哥所有。刀哥可在不通知本人的情况下随时修改本协议，修改后的条款对本人具有溯及力。</li>
         <li>本人确认：点击「提交订单」即视为已完整阅读、充分理解并衷心赞同本协议全部条款，且无任何异议。</li>
+        <li>本人同时自愿申请参加「五一假期校内自学服务」（详见下方附件一），同意其中载明的全部内容与收费标准，并承诺按时上交回执。</li>
       </ol>
       <div class="sig">
         甲方签章：刀哥官方旗舰店（盖章：一个笑脸）<br>
         生效日期：自您下单之日起，永久有效
+      </div>
+      <div class="annex">
+        <h4>附件一 · 五一假期校内自学服务申请书</h4>
+        <p class="note">本人已完整阅读上述通知，自愿申请参加五一假期校内自学服务，并同意其中载明的全部内容与收费标准（午餐 10 元/生/餐、晚餐 10 元/生/餐、校车接送 10 元/生/日）。本附件与协议正文具有同等效力，勾选即视为同意。</p>
+        <a href="annex.jpg" target="_blank" rel="noopener" title="点击查看大图">
+          <img src="annex.jpg" alt="附件一：五一假期校内自学服务申请书" loading="lazy" decoding="async">
+        </a>
+        <p class="cap">附件一 · 自愿申请参加（点击图片可查看大图）</p>
       </div>`
   },
   privacy: {
