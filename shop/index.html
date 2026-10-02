@@ -332,21 +332,30 @@ h1.title mark{background:linear-gradient(transparent 58%, #ffe066 58%);color:#22
 }
 .pay-tabs button.on{border-color:var(--tb);background:#fff3ec;color:var(--tb);font-weight:700;box-shadow:0 0 0 1px var(--tb) inset}
 .qrwrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+.qrbox{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:7px}
 .qr{
-  position:relative;width:176px;height:176px;padding:8px;background:#fff;
-  border:1px solid var(--line);border-radius:10px;flex:0 0 auto;
+  position:relative;display:block;width:190px;height:190px;padding:6px;background:#fff;
+  border:1px solid var(--line);border-radius:10px;
+  transition:transform .18s, box-shadow .18s, border-color .18s;
+  -webkit-user-drag:none;
 }
-.qr img{width:100%;height:100%;image-rendering:pixelated;opacity:.92}
+.qr:hover,.qr:focus-visible{
+  transform:translateY(-2px) scale(1.02);border-color:var(--tb);
+  box-shadow:0 8px 22px rgba(255,80,0,.22);outline:none;
+}
+.qr img{width:100%;height:100%;image-rendering:pixelated}
 .qr::before{
   content:"";position:absolute;left:10px;right:10px;height:2px;
   background:linear-gradient(90deg,transparent,#ff0036,transparent);
   box-shadow:0 0 8px #ff0036;animation:scan 2.4s ease-in-out infinite;
+  border-radius:2px;
 }
-@keyframes scan{0%{top:12px}50%{top:160px}100%{top:12px}}
+@keyframes scan{0%{top:10px}50%{top:174px}100%{top:10px}}
 .qr::after{
-  content:"占位";position:absolute;right:-6px;top:-8px;background:#333;color:#fff;
-  font-size:10px;padding:1px 6px;border-radius:99px;
+  content:"真码";position:absolute;right:-6px;top:-8px;background:#00a25a;color:#fff;
+  font-size:10px;padding:1px 6px;border-radius:99px;font-weight:700;
 }
+.qrhint{font-size:11.5px;color:var(--tb);font-weight:700}
 .qrside{flex:1;min-width:190px;text-align:left}
 .qrside .amt{color:var(--price);font-weight:900;font-size:26px;line-height:1.1}
 .qrside .amt i{font-size:15px;font-style:normal}
@@ -367,6 +376,57 @@ h1.title mark{background:linear-gradient(transparent 58%, #ffe066 58%);color:#22
   box-shadow:0 6px 18px rgba(255,0,54,.3);
 }
 .sh-foot button.go:disabled{opacity:.6;box-shadow:none}
+
+/* 协议勾选 */
+.agree{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:#666;cursor:pointer;user-select:none;line-height:1.7}
+.agree input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.agree .tick{
+  flex:0 0 18px;width:18px;height:18px;margin-top:2px;border-radius:50%;
+  border:1.5px solid #ccc;background:#fff;position:relative;transition:.15s;
+}
+.agree:hover .tick{border-color:var(--tb)}
+.agree input:checked + .tick{background:var(--tb);border-color:var(--tb)}
+.agree input:checked + .tick::after{
+  content:"";position:absolute;left:5.5px;top:2.5px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+.agree input:focus-visible + .tick{box-shadow:0 0 0 3px rgba(255,80,0,.25)}
+.agree .tx{flex:1;min-width:0}
+.agree .lnk{
+  color:var(--tb);font-weight:700;font-size:12.5px;padding:0;
+  text-decoration:underline;text-underline-offset:2px;display:inline;
+}
+.agree.miss{animation:shk .5s cubic-bezier(.36,.07,.19,.97) both}
+.agree.miss .tick{border-color:#d40000}
+
+/* 协议弹窗 */
+.docmask{
+  position:fixed;inset:0;z-index:118;background:rgba(0,0,0,.55);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.docmask.on{opacity:1;pointer-events:auto}
+.doc{
+  position:fixed;left:50%;top:50%;z-index:119;
+  transform:translate(-50%,-50%) scale(.94);
+  width:calc(100% - 32px);max-width:520px;max-height:84vh;
+  background:#fff;border-radius:14px;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+.doc.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.doc-head{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.doc-head h3{margin:0;font-size:16px;font-weight:800}
+.doc-head .x{margin-left:auto;font-size:20px;color:#bbb;padding:0 4px}
+.doc-body{padding:14px 20px 18px;overflow:auto;font-size:13.5px;color:#444;line-height:1.9}
+.doc-body h4{margin:0 0 10px;font-size:13.5px;color:#222}
+.doc-body ol{margin:0;padding-left:20px}
+.doc-body li{margin-bottom:10px}
+.doc-body .sig{margin-top:16px;padding-top:12px;border-top:1px dashed #eee;text-align:right;color:#999;font-size:12.5px;line-height:1.8}
+.doc-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.doc-foot button{
+  width:100%;background:linear-gradient(90deg,#ff5000,#ff0036);color:#fff;
+  border-radius:999px;padding:12px;font-size:15px;font-weight:800;
+}
 
 .done{text-align:center;padding:8px 0 4px}
 .done .ok{
@@ -514,7 +574,7 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
       <div class="card">
         <div class="pricebox">
           <div class="p-row">
-            <div class="now"><i>¥</i><em id="priceNum">0.01</em></div>
+            <div class="now"><i>¥</i><em id="priceNum">7.8</em></div>
             <div class="old">¥999999.00</div>
             <div class="disc">骨折价</div>
           </div>
@@ -535,10 +595,10 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
         </div>
 
         <div class="coupon">
-          <span class="cp">满0.01减0.01</span>
+          <span class="cp">满7.8减0.01</span>
           <span class="cp">刀哥专属券</span>
-          <span>领券后到手价 ¥0.00</span>
-          <span class="more" onclick="toast('已领取「刀哥专属券」<br>抵扣 ¥0.01，实付 ¥0.00')">立即领取 ›</span>
+          <span>领券后到手价 ¥7.79</span>
+          <span class="more" onclick="toast('已领取「刀哥专属券」<br>抵扣 ¥0.01，实付 ¥7.79')">立即领取 ›</span>
         </div>
 
         <div class="opt">
@@ -683,7 +743,7 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
           <div class="inf">
             <p>刀哥 正品包邮 现货秒发 本人亲自发货 不是林睿彬</p>
             <div class="sk">颜色：<span id="skColor">刀哥（标准版）</span> · 规格：<span id="skSize">一只</span></div>
-            <div class="pr">¥0.01<small>¥999999.00</small></div>
+            <div class="pr">¥7.8<small>¥999999.00</small></div>
           </div>
         </div>
       </div>
@@ -711,9 +771,21 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
         <input id="remark" placeholder="备注（客服会认真看，然后忘记）"
           style="width:100%;border:1px solid #eee;border-radius:8px;padding:9px 12px;font-size:13px;outline:0;color:#333">
       </div>
+
+      <div class="box">
+        <div class="agree" id="agreeRow">
+          <input type="checkbox" id="agreeChk">
+          <span class="tick" aria-hidden="true"></span>
+          <span class="tx">我已仔细阅读并自愿同意
+            <button type="button" class="lnk" data-doc="cheat">《自愿被骗协议》</button>与
+            <button type="button" class="lnk" data-doc="privacy">《隐私协议》</button>，
+            且知悉本订单一经提交概不退款、概不负责、概不解释。
+          </span>
+        </div>
+      </div>
     </div>
     <div class="sh-foot">
-      <div class="sum">合计<b>¥<span id="total1">0.01</span></b></div>
+      <div class="sum">合计<b>¥<span id="total1">7.80</span></b></div>
       <button class="go" id="toPay">提交订单</button>
     </div>
   </div>
@@ -730,23 +802,28 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
           <button>🔪 刀哥支付</button>
         </div>
         <div class="qrwrap">
-          <div class="qr"><img src="qrcode.png" alt="收款二维码占位"></div>
+          <div class="qrbox">
+            <a class="qr" id="qrLink" href="../daoge666/" title="扫码或点击前往「刀哥牛逼666」">
+              <img src="qrcode.png" alt="刀哥收款二维码">
+            </a>
+            <span class="qrhint">点击二维码直接跳转 ›</span>
+          </div>
           <div class="qrside">
-            <div class="amt"><i>¥</i><span id="total2">0.01</span></div>
-            <p>请使用手机扫描左侧二维码完成支付</p>
+            <div class="amt"><i>¥</i><span id="total2">7.80</span></div>
+            <p>请使用手机扫描二维码完成支付</p>
             <p class="paycd">支付剩余时间 <b id="payCd">04:59</b></p>
             <p style="color:#d40000;font-weight:700;margin-top:8px">⚠️ 收款方：刀哥（个人）</p>
           </div>
         </div>
         <div class="tip">
-          · 二维码为占位图，扫不出任何东西，请勿当真<br>
+          · 本二维码真实有效，扫描后将前往「刀哥牛逼666」页面<br>
           · 本页面不会产生任何真实交易，也不会扣你一分钱<br>
           · 如扫出「林睿彬」，请立即关闭页面并深呼吸
         </div>
       </div>
     </div>
     <div class="sh-foot">
-      <div class="sum">待支付<b>¥<span id="total3">0.01</span></b></div>
+      <div class="sum">待支付<b>¥<span id="total3">7.80</span></b></div>
       <button class="go" id="paid">我已完成支付</button>
     </div>
   </div>
@@ -761,7 +838,7 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
         <div class="orderbox">
           <div><b>订单编号</b><span id="orderNo"></span></div>
           <div><b>商品</b><span>刀哥 × 1（已确认不是林睿彬）</span></div>
-          <div><b>实付款</b><span style="color:#ff0036;font-weight:800">¥0.01</span></div>
+          <div><b>实付款</b><span style="color:#ff0036;font-weight:800">¥7.80</span></div>
           <div><b>承运人</b><span>刀哥本人</span></div>
           <div><b>预计送达</b><span>现在</span></div>
           <div><b>收货人</b><span>刀哥（本人签收）</span></div>
@@ -769,10 +846,21 @@ footer.site{max-width:1180px;margin:22px auto 30px;padding:0 12px;color:#bbb;fon
       </div>
     </div>
     <div class="sh-foot">
-      <div class="sum">实付<b>¥0.01</b></div>
+      <div class="sum">实付<b>¥7.80</b></div>
       <button class="go" id="flyBtn">查看刀哥飞出 🎉</button>
     </div>
   </div>
+</div>
+
+<!-- 协议弹窗 -->
+<div class="docmask" id="docMask"></div>
+<div class="doc" id="doc" role="dialog" aria-modal="true" aria-labelledby="docTitle">
+  <div class="doc-head">
+    <h3 id="docTitle"></h3>
+    <button class="x" id="docClose" aria-label="关闭">✕</button>
+  </div>
+  <div class="doc-body" id="docBody"></div>
+  <div class="doc-foot"><button id="docOk">我已阅读，且无路可退</button></div>
 </div>
 
 <!-- 飞出层 -->
@@ -888,11 +976,12 @@ document.querySelectorAll('.box .chips').forEach(wrap=>{
 });
 
 /* ---------- 数量 ---------- */
+const PRICE = 7.8;              // 单价，改价只改这里
 const qtyEl = $('#qty');
 function syncQty(){
   let v = Math.max(1, Math.min(999999, parseInt(qtyEl.value) || 1));
   qtyEl.value = v;
-  const t = (v * 0.01).toFixed(2);
+  const t = (v * PRICE).toFixed(2);
   $('#total1').textContent = t; $('#total2').textContent = t; $('#total3').textContent = t;
   if(v > 1) $('#stockline').textContent = '库存仅剩 1 件，多出的 ' + (v-1) + ' 件将由刀哥本人补齐';
   else $('#stockline').textContent = '仅剩 1 件（已被刀哥本人锁定）';
@@ -1018,6 +1107,78 @@ $('#addCart').onclick = ()=>{
   setTimeout(()=>$('#addCart').classList.remove('shake'), 600);
 };
 
+/* ---------- 协议 ---------- */
+const DOCS = {
+  cheat: {
+    title: '自愿被骗协议',
+    html: `
+      <h4>甲方：刀哥官方旗舰店（以下简称「刀哥」）&nbsp;&nbsp;乙方：本人（以下简称「你」）</h4>
+      <ol>
+        <li>本人自愿以 <b>7.8 元</b> 的价格购买「刀哥」一只，并已充分知悉：可能收到刀哥，可能收到林睿彬，也可能什么都不发。</li>
+        <li>本人承诺：若收到林睿彬，将不哭、不闹、不上吊，不投诉、不差评、不报警、不告诉妈妈。</li>
+        <li>本人理解并接受：本店客服由刀哥本人兼任，因此刀哥既是发货方、收款方，也是客服、仲裁方与最终解释方。</li>
+        <li>本人自愿放弃一切退款、退货、换货、补发、精神损害赔偿，以及「我要报警了」等一切救济权利。</li>
+        <li>本协议最终解释权归刀哥所有。刀哥可在不通知本人的情况下随时修改本协议，修改后的条款对本人具有溯及力。</li>
+        <li>本人确认：点击「提交订单」即视为已完整阅读、充分理解并衷心赞同本协议全部条款，且无任何异议。</li>
+      </ol>
+      <div class="sig">
+        甲方签章：刀哥官方旗舰店（盖章：一个笑脸）<br>
+        生效日期：自您下单之日起，永久有效
+      </div>`
+  },
+  privacy: {
+    title: '隐私协议',
+    html: `
+      <h4>刀哥官方旗舰店 · 隐私保护办公室（办公室即刀哥家）</h4>
+      <ol>
+        <li>为向您提供更好的服务，本店将收集以下信息：姓名、手机号、收货地址、银行卡余额、昨晚几点睡，以及您对林睿彬的真实看法。</li>
+        <li>所收集的信息将用于：发货、寄送刀哥，以及让刀哥在深夜看你一眼。</li>
+        <li>本店承诺不会将您的个人信息出售给任何第三方——因为刀哥不需要钱，刀哥只需要你。</li>
+        <li>您有权随时要求删除您的全部个人信息。刀哥会认真考虑这一请求，然后忘记。</li>
+        <li>您的信息可能被用于训练刀哥，使刀哥更加像刀哥。</li>
+        <li>若您不同意本协议，请立即关闭本页面。但请知悉：刀哥已经记住你了。</li>
+      </ol>
+      <div class="sig">
+        更新日期：2026-10-02<br>
+        本协议如有变更，恕不另行通知（反正你也不会看）
+      </div>`
+  }
+};
+const doc = $('#doc'), docMask = $('#docMask');
+function openDoc(key){
+  const d = DOCS[key]; if(!d) return;
+  $('#docTitle').textContent = d.title;
+  $('#docBody').innerHTML = d.html;
+  $('#docBody').scrollTop = 0;
+  docMask.classList.add('on');
+  doc.classList.add('on');
+}
+function closeDoc(){
+  docMask.classList.remove('on');
+  doc.classList.remove('on');
+}
+document.querySelectorAll('[data-doc]').forEach(b=>{
+  b.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); openDoc(b.dataset.doc); });
+});
+$('#agreeRow').addEventListener('click', e=>{
+  if(e.target.closest('.lnk') || e.target === $('#agreeChk')) return;
+  $('#agreeChk').checked = !$('#agreeChk').checked;
+});
+$('#docClose').onclick = closeDoc;
+$('#docOk').onclick = ()=>{
+  closeDoc();
+  $('#agreeChk').checked = true;
+  toast('已同意《自愿被骗协议》与《隐私协议》<br>刀哥很欣慰', 1800);
+};
+docMask.onclick = closeDoc;
+
+/* ---------- 二维码跳转 ---------- */
+$('#qrLink').addEventListener('click', e=>{
+  e.preventDefault();
+  toast('正在前往收款页面…<br><b>刀哥牛逼666</b>', 900);
+  setTimeout(()=>{ location.href = $('#qrLink').getAttribute('href'); }, 700);
+});
+
 /* ---------- 购买弹层 ---------- */
 const sheet = $('#sheet'), mask = $('#mask');
 function openSheet(){
@@ -1043,9 +1204,22 @@ function goStep(n){
 $('#buyNow').onclick = ()=>{ goStep(1); openSheet(); };
 $('#shClose').onclick = closeSheet;
 mask.onclick = closeSheet;
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeSheet(); closeFly(); } });
+document.addEventListener('keydown', e=>{
+  if(e.key !== 'Escape') return;
+  if($('#doc').classList.contains('on')){ closeDoc(); return; }
+  closeSheet(); closeFly();
+});
 
 $('#toPay').onclick = ()=>{
+  // 必须先同意协议
+  if(!$('#agreeChk').checked){
+    const row = $('#agreeRow');
+    row.classList.add('miss');
+    setTimeout(()=>row.classList.remove('miss'), 600);
+    toast('请先勾选并同意<br><b>《自愿被骗协议》</b>与<b>《隐私协议》</b>', 2200);
+    row.scrollIntoView({block:'center', behavior:'smooth'});
+    return;
+  }
   const btn = $('#toPay');
   btn.disabled = true; btn.textContent = '提交中…';
   setTimeout(()=>{
