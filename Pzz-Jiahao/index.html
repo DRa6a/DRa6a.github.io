@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pzz别豪了 · 嘉豪编年史</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%B6%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --neon:#00f0ff;--pink:#ff2d78;--ink:#05060a;--txt:#e8f6ff;--dim:#5c8ba3;
@@ -309,7 +310,7 @@
 
 <!-- ============ HERO ============ -->
 <section id="hero">
-  <video id="heroVid" src="video.mp4" autoplay muted loop playsinline></video>
+  <video id="heroVid" src="video.mp4" autoplay muted loop playsinline preload="auto"></video>
   <div class="topfade"></div>
   <div class="heroInner">
     <h1 id="title">Pzz别豪了</h1>
@@ -776,15 +777,47 @@ $('#finaleBtn').onclick=e=>{e.stopPropagation();
   toast('Pzz 终于别豪了。世界安静了。');
 };
 
-/* ============ 视频离开视口自动暂停（省解码 / 合成开销） ============ */
+/* ============ 视频播放：自动播放兜底 + 离开视口暂停（省解码 / 合成开销） ============ */
 const heroVid=$('#heroVid');
+
+/* 用户手动暂停过的视频不要被自动恢复 */
+function vidUserPaused(v){return v===mainVid&&mainVidUserPaused;}
+
+function tryPlayVid(v){
+  if(vidUserPaused(v)||!v.paused)return;
+  const p=v.play();
+  if(p&&p.catch)p.catch(()=>{}); /* 被浏览器拦截时静默失败，等用户手势再试 */
+}
+/* 只播视口内、且没被用户暂停的视频（rAF 节流，滚动时不掉帧） */
+let vpTick=false;
+function playVisibleVids(){
+  if(vpTick)return;vpTick=true;
+  requestAnimationFrame(()=>{
+    [heroVid,mainVid].forEach(v=>{
+      if(vidUserPaused(v))return;
+      const r=v.getBoundingClientRect();
+      if(r.bottom>0&&r.top<innerHeight)tryPlayVid(v);
+    });
+    vpTick=false;
+  });
+}
+
 const vidObs=new IntersectionObserver(es=>es.forEach(en=>{
   const v=en.target;
-  if(en.isIntersecting){
-    if(v===heroVid||!mainVidUserPaused)v.play().catch(()=>{});
-  }else v.pause();
+  if(en.isIntersecting)tryPlayVid(v);
+  else v.pause();
 }),{threshold:.02});
 vidObs.observe(heroVid);vidObs.observe(mainVid);
+
+/* 被拦截时的兜底：首次交互 / 页面重新可见 / 数据就绪 都再试一次 */
+['pointerdown','touchstart','keydown','click','scroll'].forEach(ev=>
+  addEventListener(ev,playVisibleVids,{passive:true}));
+addEventListener('visibilitychange',()=>{if(!document.hidden)playVisibleVids();});
+[heroVid,mainVid].forEach(v=>{
+  v.addEventListener('loadeddata',playVisibleVids);
+  v.addEventListener('canplay',playVisibleVids);
+});
+playVisibleVids();
 
 /* ============ 时钟 ============ */
 (function tick(){const d=new Date();
