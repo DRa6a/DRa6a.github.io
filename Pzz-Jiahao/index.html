@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pzz别豪了 · 嘉豪编年史</title>
+<style>
+  :root{
+    --neon:#00f0ff;--pink:#ff2d78;--ink:#05060a;--txt:#e8f6ff;--dim:#5c8ba3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{
+    scroll-behavior:smooth;
+    /* clip 不产生滚动容器：避免 html+body 双重 overflow 把 body 挤窄 10px */
+    overflow-x:clip;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  body{
+    background:var(--ink);color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+    cursor:crosshair;user-select:none;-webkit-tap-highlight-color:transparent;
+    overflow-x:clip;
+  }
+  /* 隐藏原生滚动条：右侧不再留 10px 空白，视频可铺到最边缘（进度看顶部彩条） */
+  ::-webkit-scrollbar{width:0;height:0;}
+
+  /* ---------- 全局背景 ---------- */
+  #bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(900px 600px at 18% 8%, rgba(0,240,255,.10), transparent 60%),
+      radial-gradient(800px 700px at 85% 92%, rgba(255,45,120,.10), transparent 60%),
+      linear-gradient(160deg,#05060a,#0a0f1c 45%,#05060a);}
+  #gridfx{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
+    background-image:
+      linear-gradient(rgba(0,240,255,.08) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,240,255,.08) 1px,transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);
+    mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);}
+  #raincv{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;transition:opacity 1s;}
+  #raincv.hidden{opacity:0;}
+
+  /* ---------- 顶部 HUD ---------- */
+  #hud{position:fixed;top:0;left:0;right:0;z-index:60;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 20px;font-size:12px;letter-spacing:.16em;color:var(--dim);
+    background:linear-gradient(rgba(5,6,10,.85),transparent);pointer-events:none;}
+  #hud b{color:#9ff4ff;}
+  #clock{color:var(--pink);}
+  #progress{position:fixed;top:0;left:0;height:3px;z-index:61;width:0%;
+    background:linear-gradient(90deg,#00f0ff,#ff2d78);box-shadow:0 0 12px var(--pink);}
+
+  /* ---------- 右侧章节圆点导航 ---------- */
+  #dotnav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;
+    display:flex;flex-direction:column;gap:14px;}
+  #dotnav a{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.18);
+    border:1px solid rgba(0,240,255,.4);cursor:pointer;position:relative;transition:all .3s;}
+  #dotnav a:hover,#dotnav a.on{background:linear-gradient(92deg,#00f0ff,#ff2d78);
+    box-shadow:0 0 14px rgba(255,45,120,.8);transform:scale(1.3);}
+  #dotnav a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);
+    white-space:nowrap;font-size:12px;letter-spacing:.14em;color:#9ff4ff;
+    background:rgba(5,6,10,.85);border:1px solid rgba(0,240,255,.35);
+    padding:4px 10px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  #dotnav a:hover span{opacity:1;}
+
+  /* ---------- 章节通用（吸附） ---------- */
+  section{position:relative;z-index:5;padding:96px 24px;
+    max-width:1100px;margin:0 auto;
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;}
+  .reveal{opacity:0;transform:translateY(28px);
+    transition:opacity .6s ease,transform .6s cubic-bezier(.2,1,.3,1);}
+  .reveal.on{opacity:1;transform:none;}
+  .chapter{font-size:12px;letter-spacing:.5em;color:var(--neon);margin-bottom:14px;text-transform:uppercase;}
+  h2{font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:.06em;margin-bottom:12px;
+    background:linear-gradient(92deg,#fff,#7ef9ff 40%,#ff2d78);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .lead{color:#9fc4d8;line-height:1.9;font-size:clamp(14px,1.8vw,17px);max-width:720px;}
+
+  /* ---------- HERO ---------- */
+  #hero{max-width:none;padding:0;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;}
+  #heroVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.35) brightness(.55);transform:scale(1.15);z-index:-2;}
+  #hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(circle at 50% 45%,rgba(5,6,10,.5),rgba(5,6,10,.96) 78%);}
+  /* 视频下方：渐进式模糊 + 渐隐，柔和融进下一页，避免生硬切边 */
+  #hero::before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:2;
+    backdrop-filter:blur(16px) saturate(1.2);
+    -webkit-backdrop-filter:blur(16px) saturate(1.2);
+    -webkit-mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.45) 45%,#000 100%);
+    mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.45) 45%,#000 100%);
+    background:linear-gradient(transparent,rgba(5,6,10,.5) 55%,var(--ink) 100%);
+    pointer-events:none;}
+  /* 顶部也做一层轻微模糊收边，让 HUD 与画面衔接更自然 */
+  #hero .topfade{position:absolute;left:0;right:0;top:0;height:16%;z-index:2;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    -webkit-mask-image:linear-gradient(to top,transparent,#000 100%);
+    mask-image:linear-gradient(to top,transparent,#000 100%);
+    background:linear-gradient(rgba(5,6,10,.55),transparent);pointer-events:none;}
+  .heroInner{position:relative;z-index:3;text-align:center;padding:0 20px;}
+  #title{font-size:clamp(52px,11vw,140px);font-weight:900;letter-spacing:.1em;line-height:1;
+    background:linear-gradient(92deg,#fff,#7ef9ff 30%,#ff2d78 70%,#fff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(0,240,255,.55));}
+  #title.shake{animation:shake .3s linear 3;}
+  @keyframes shake{0%{transform:translate(0)}25%{transform:translate(-8px,4px)}50%{transform:translate(6px,-5px)}75%{transform:translate(-5px,-3px)}100%{transform:translate(0)}}
+  .tagline{margin-top:22px;font-size:clamp(12px,1.8vw,16px);letter-spacing:.42em;color:#7fb8d6;}
+  .scrollcue{margin-top:52px;font-size:12px;letter-spacing:.3em;color:var(--dim);
+    cursor:pointer;animation:bob 1.8s ease-in-out infinite;transition:color .25s;}
+  .scrollcue:hover{color:#9ff4ff;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+  /* ---------- 章节衔接带 ---------- */
+  .seam{position:relative;z-index:5;height:120px;display:flex;align-items:center;justify-content:center;
+    pointer-events:none;}
+  .seam::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;
+    background:linear-gradient(transparent,rgba(0,240,255,.55),transparent);}
+  .seam i{position:relative;width:9px;height:9px;border-radius:50%;
+    background:linear-gradient(92deg,#00f0ff,#ff2d78);
+    box-shadow:0 0 18px rgba(255,45,120,.85);animation:seampulse 2.2s ease-in-out infinite;}
+  @keyframes seampulse{0%,100%{transform:scale(.7);opacity:.55}50%{transform:scale(1.25);opacity:1}}
+
+  /* ---------- 按钮 ---------- */
+  button{font-family:inherit;font-size:clamp(14px,1.7vw,17px);font-weight:800;letter-spacing:.1em;
+    color:#04121a;cursor:pointer;padding:14px 32px;border:none;border-radius:999px;
+    background:linear-gradient(92deg,#7ef9ff,#00f0ff);
+    box-shadow:0 0 24px rgba(0,240,255,.5),0 8px 24px rgba(0,0,0,.5);
+    transition:transform .16s,box-shadow .25s;}
+  button:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 0 40px rgba(0,240,255,.85);}
+  button:active{transform:scale(.96);}
+  button.pink{background:linear-gradient(92deg,#ff8ab5,#ff2d78);color:#2a0011;box-shadow:0 0 24px rgba(255,45,120,.5);}
+  button.ghost{background:transparent;color:#9ff4ff;border:1.5px solid rgba(0,240,255,.45);
+    box-shadow:none;font-size:13px;padding:10px 20px;}
+  button.ghost:hover{background:rgba(0,240,255,.1);box-shadow:0 0 16px rgba(0,240,255,.3);}
+  .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;}
+
+  /* ---------- 变身舞台 ---------- */
+  #stageBox{display:flex;gap:44px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:36px;}
+  #portraitWrap{position:relative;width:min(64vw,320px);aspect-ratio:1/1;border-radius:22px;overflow:hidden;
+    border:2px solid rgba(0,240,255,.45);background:#0a0f1c;
+    box-shadow:0 0 46px rgba(0,240,255,.25),inset 0 0 40px rgba(0,0,0,.6);
+    transition:transform .5s cubic-bezier(.2,1.4,.4,1);}
+  #portraitWrap.hovering{transform:scale(1.03) rotate(-1deg);}
+  #portraitWrap.shakeit{animation:shake .5s linear;}
+  #pzz,#jiahao{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s;}
+  #jiahao{opacity:0;}
+  #portraitWrap.transformed #pzz{opacity:0;}
+  #portraitWrap.transformed #jiahao{opacity:1;}
+  #portraitWrap::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:repeating-linear-gradient(180deg,rgba(0,0,0,.28) 0 2px,transparent 2px 4px);}
+  #scan{position:absolute;left:0;right:0;height:12%;z-index:6;opacity:0;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(0,240,255,.6),transparent);}
+  #portraitWrap.transforming #scan{opacity:1;animation:scanrun .85s linear infinite;}
+  @keyframes scanrun{from{top:-14%}to{top:102%}}
+  .nameplate{position:absolute;left:12px;bottom:12px;z-index:7;font-size:13px;font-weight:700;
+    letter-spacing:.16em;padding:5px 12px;border-radius:999px;color:#9ff4ff;
+    background:rgba(5,6,10,.85);border:1px solid rgba(0,240,255,.5);}
+  #portraitWrap.transformed .nameplate{color:#ffd0e4;border-color:rgba(255,45,120,.6);box-shadow:0 0 16px rgba(255,45,120,.5);}
+
+  #panelSide{flex:1;min-width:280px;max-width:420px;}
+  .stat{margin-bottom:16px;}
+  .stat .row{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.14em;color:#8fb8cc;margin-bottom:5px;}
+  .stat .row b{color:var(--pink);font-variant-numeric:tabular-nums;}
+  .bar{height:11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(0,240,255,.22);overflow:hidden;}
+  .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#00f0ff,#ff2d78);
+    box-shadow:0 0 14px rgba(255,45,120,.6);transition:width 1.1s cubic-bezier(.2,1.2,.3,1);}
+
+  /* ---------- 词典 ---------- */
+  .dictGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;margin-top:32px;}
+  .card{position:relative;padding:20px 18px;border-radius:16px;overflow:hidden;cursor:pointer;
+    background:linear-gradient(150deg,rgba(0,240,255,.08),rgba(255,45,120,.05));
+    border:1px solid rgba(0,240,255,.22);transition:transform .3s,border-color .3s,box-shadow .3s;}
+  .card:hover{transform:translateY(-6px);border-color:rgba(0,240,255,.7);box-shadow:0 14px 40px rgba(0,240,255,.2);}
+  .card h3{font-size:18px;margin-bottom:8px;color:#bff6ff;letter-spacing:.06em;}
+  .card p{font-size:13px;line-height:1.7;color:#8fb8cc;}
+  .card .tag{position:absolute;top:14px;right:16px;font-size:11px;color:var(--pink);letter-spacing:.1em;}
+
+  /* ---------- 实力认证（视频主角） ---------- */
+  #power{max-width:none;}
+  #power .wrap{max-width:1100px;margin:0 auto;}
+  .powerGrid{display:flex;gap:40px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:36px;}
+  #vidStage{position:relative;width:min(80vw,420px);aspect-ratio:1/1;border-radius:22px;overflow:hidden;
+    border:2px solid rgba(255,45,120,.45);box-shadow:0 0 60px rgba(255,45,120,.28);background:#000;}
+  #vidStage video{width:100%;height:100%;object-fit:cover;display:block;transition:filter .25s;}
+  #vidStage .badge{position:absolute;top:14px;left:14px;z-index:4;font-size:11px;letter-spacing:.2em;
+    padding:5px 12px;border-radius:999px;background:rgba(5,6,10,.75);border:1px solid rgba(255,45,120,.55);color:#ffd0e4;}
+  #vidStage .blurNote{position:absolute;bottom:0;left:0;right:0;z-index:4;text-align:center;
+    font-size:12px;letter-spacing:.16em;padding:10px;color:#bff6ff;background:linear-gradient(transparent,rgba(0,0,0,.9));}
+  .ctrl{flex:1;min-width:280px;max-width:440px;}
+  .ctrl label{display:block;font-size:12px;letter-spacing:.16em;color:#8fb8cc;margin:20px 0 8px;}
+  input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:999px;outline:none;
+    background:linear-gradient(90deg,#00f0ff,#ff2d78);}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:#fff;box-shadow:0 0 14px rgba(0,240,255,.9);cursor:pointer;}
+  .verdict{margin-top:20px;padding:16px 18px;border-radius:14px;font-size:14px;line-height:1.7;
+    background:rgba(0,240,255,.07);border:1px solid rgba(0,240,255,.28);color:#bff6ff;}
+
+  /* ---------- 人格测试 ---------- */
+  #quizBox{margin-top:30px;max-width:760px;}
+  .q{margin-bottom:20px;padding:20px;border-radius:16px;
+    background:rgba(255,255,255,.035);border:1px solid rgba(0,240,255,.16);}
+  .q .qt{font-size:16px;font-weight:700;color:#cdeeff;margin-bottom:13px;letter-spacing:.04em;}
+  .opts{display:flex;gap:12px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:140px;padding:12px 15px;border-radius:12px;cursor:pointer;font-size:14px;
+    background:rgba(0,240,255,.06);border:1.5px solid rgba(0,240,255,.22);color:#bff6ff;transition:all .2s;}
+  .opt:hover{background:rgba(0,240,255,.16);border-color:var(--neon);}
+  .opt.sel{background:linear-gradient(92deg,#00f0ff,#ff2d78);color:#04121a;font-weight:800;border-color:transparent;}
+  #quizResult{margin-top:24px;padding:26px;border-radius:18px;display:none;
+    background:linear-gradient(150deg,rgba(255,45,120,.14),rgba(0,240,255,.08));
+    border:1px solid rgba(255,45,120,.4);text-align:center;}
+  #quizResult.show{display:block;animation:pop .5s cubic-bezier(.2,1.4,.4,1);}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  #quizResult .score{font-size:clamp(40px,8vw,72px);font-weight:900;
+    background:linear-gradient(92deg,#fff,#ff2d78);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  #quizResult .rank{font-size:22px;font-weight:800;color:#ffd0e4;margin:6px 0 12px;}
+  #quizResult .desc{font-size:14px;line-height:1.8;color:#9fc4d8;}
+
+  /* ---------- 语录墙 ---------- */
+  #wall{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px;}
+  .wq{padding:10px 18px;border-radius:999px;font-size:14px;cursor:pointer;
+    background:rgba(0,240,255,.07);border:1px solid rgba(0,240,255,.25);color:#bff6ff;transition:all .2s;}
+  .wq:hover{background:linear-gradient(92deg,#00f0ff,#ff2d78);color:#04121a;font-weight:800;transform:scale(1.06);}
+
+  /* ---------- 终章 ---------- */
+  #finale{text-align:center;align-items:center;}
+  #finaleBtn{font-size:clamp(18px,3vw,26px);padding:22px 54px;}
+
+  /* ---------- 浮动元素 ---------- */
+  .quote{position:fixed;z-index:80;pointer-events:none;padding:8px 16px;border-radius:14px;white-space:nowrap;
+    font-size:clamp(13px,1.7vw,17px);font-weight:700;color:#bff6ff;background:rgba(5,6,10,.92);
+    border:1px solid rgba(0,240,255,.5);box-shadow:0 0 20px rgba(0,240,255,.3);
+    animation:quotePop 2.6s ease forwards;}
+  .quote.pink{border-color:rgba(255,45,120,.6);color:#ffd0e4;box-shadow:0 0 20px rgba(255,45,120,.35);}
+  @keyframes quotePop{0%{opacity:0;transform:translate(-50%,-40%) scale(.5) rotate(var(--r));}
+    14%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(var(--r));}
+    24%{transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
+    80%{opacity:1;}100%{opacity:0;transform:translate(-50%,-170%) scale(.9) rotate(var(--r));}}
+  .danmu{position:fixed;z-index:70;white-space:nowrap;font-weight:800;pointer-events:none;
+    font-size:clamp(14px,2vw,22px);text-shadow:0 0 12px currentColor;animation:danmu linear forwards;}
+  @keyframes danmu{from{transform:translateX(100vw)}to{transform:translateX(-110%)}}
+  .trail{position:fixed;z-index:90;width:9px;height:9px;border-radius:50%;pointer-events:none;
+    animation:trail .6s ease-out forwards;}
+  @keyframes trail{to{opacity:0;transform:scale(2.6)}}
+  #flash{position:fixed;inset:0;z-index:95;background:#eaffff;opacity:0;pointer-events:none;}
+  #flash.go{animation:flash .55s ease;}
+  @keyframes flash{0%{opacity:0}12%{opacity:.95}100%{opacity:0}}
+  #toast{position:fixed;left:50%;top:76px;transform:translateX(-50%) translateY(-20px);z-index:96;
+    padding:10px 22px;border-radius:999px;font-size:13px;letter-spacing:.14em;font-weight:700;
+    background:rgba(5,6,10,.9);border:1px solid rgba(255,45,120,.6);color:#ffd0e4;
+    opacity:0;transition:all .35s;pointer-events:none;}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ---------- 音乐播放器 ---------- */
+  #musicBox{position:fixed;left:18px;bottom:18px;z-index:62;display:flex;align-items:center;gap:12px;
+    padding:10px 14px;border-radius:16px;background:rgba(5,6,10,.94);
+    border:1px solid rgba(0,240,255,.35);box-shadow:0 0 26px rgba(0,240,255,.2);}
+  #musicBox .mtxt{font-size:12px;letter-spacing:.12em;line-height:1.5;color:#9ff4ff;}
+  #musicBox .mtxt b{display:block;color:#fff;font-size:13px;}
+  #musicBox .mtxt small{color:var(--dim);font-size:10px;}
+  #musicBtn{font-size:12px;padding:8px 16px;letter-spacing:.1em;box-shadow:none;}
+  #eq{display:flex;align-items:flex-end;gap:3px;height:22px;}
+  #eq i{width:3px;height:5px;background:linear-gradient(#00f0ff,#ff2d78);border-radius:2px;transition:height .12s;}
+  #bgm{display:none;}
+  #musicBox.hint{animation:mpulse 1.6s ease-in-out infinite;}
+  @keyframes mpulse{0%,100%{box-shadow:0 0 26px rgba(0,240,255,.2)}
+    50%{box-shadow:0 0 44px rgba(255,45,120,.75)}}
+  #vol{width:88px;-webkit-appearance:none;appearance:none;height:5px;border-radius:999px;
+    background:rgba(255,255,255,.18);outline:none;cursor:pointer;}
+  #vol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 0 10px rgba(0,240,255,.9);cursor:pointer;}
+  @media (max-width:600px){
+    #musicBox .mtxt{display:none;}
+    #dotnav{right:10px;}
+    section{padding:84px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="bgfx"></div>
+<div id="gridfx"></div>
+<canvas id="raincv"></canvas>
+<div id="progress"></div>
+<div id="hud">
+  <div>MODE: <b id="modeTxt">PZZ</b> ｜ 雨: <b id="rainTxt">ON</b> ｜ 嘉豪指数: <b id="hudMeter">0</b>%</div>
+  <div><span id="clock">--:--:--</span></div>
+</div>
+
+<!-- 右侧章节导航 -->
+<nav id="dotnav">
+  <a data-t="hero"><span>封面</span></a>
+  <a data-t="chapter1"><span>01 一键嘉豪化</span></a>
+  <a data-t="chapter2"><span>02 嘉豪词典</span></a>
+  <a data-t="power"><span>03 实力认证</span></a>
+  <a data-t="chapter4"><span>04 人格测试</span></a>
+  <a data-t="chapter6"><span>05 语录墙</span></a>
+  <a data-t="finale"><span>终章 别豪了</span></a>
+</nav>
+
+<!-- 音乐播放器 -->
+<div id="musicBox">
+  <div id="eq"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="mtxt"><b>嘉豪进行曲</b><small>DJ小野 · 网易云音乐</small></div>
+  <button id="musicBtn">▶ 播放</button>
+  <input type="range" id="vol" min="0" max="100" value="70">
+  <audio id="bgm" src="嘉豪进行曲.mp3" loop preload="auto"></audio>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <video id="heroVid" src="模糊的画质，清晰的的实力.mp4" autoplay muted loop playsinline></video>
+  <div class="topfade"></div>
+  <div class="heroInner">
+    <h1 id="title">Pzz别豪了</h1>
+    <div class="tagline">模 糊 的 画 质 · 清 晰 的 实 力</div>
+    <div class="scrollcue" id="scrollCue">↓ 往下滚，见证一个男人的堕落 ↓</div>
+  </div>
+</section>
+
+<!-- 封面与第一章的衔接带 -->
+<div class="seam"><i></i></div>
+
+<!-- ============ 第1章 变身 ============ -->
+<section id="chapter1" class="reveal">
+  <div class="chapter">Chapter 01</div>
+  <h2>一键嘉豪化</h2>
+  <p class="lead">嘉豪不是一个人，是一种状态。全黑连帽卫衣 + 黑色3D立体口罩 + 虚空打碟 —— 只要集齐这三件套，任何人都能完成嘉豪化。下面有请 Pzz 亲自示范。</p>
+
+  <div id="stageBox">
+    <div id="portraitWrap">
+      <div id="scan"></div>
+      <img id="pzz" src="Pzz.jpg" alt="Pzz">
+      <img id="jiahao" src="嘉豪.png" alt="嘉豪">
+      <div class="nameplate" id="nameplate">Pzz · 正常人</div>
+    </div>
+
+    <div id="panelSide">
+      <div class="stat"><div class="row"><span>嘉豪指数</span><b><span id="m1">0</span>%</b></div><div class="bar"><i id="b1"></i></div></div>
+      <div class="stat"><div class="row"><span>装酷浓度</span><b><span id="m2">0</span>%</b></div><div class="bar"><i id="b2"></i></div></div>
+      <div class="stat"><div class="row"><span>慢动作熟练度</span><b><span id="m3">0</span>%</b></div><div class="bar"><i id="b3"></i></div></div>
+      <div class="stat"><div class="row"><span>帽子依赖度</span><b><span id="m4">0</span>%</b></div><div class="bar"><i id="b4"></i></div></div>
+      <div class="btns">
+        <button id="transformBtn">⚡ 一键嘉豪化</button>
+        <button id="resetBtn" class="ghost">↺ 退回Pzz</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第2章 词典 ============ -->
+<section id="chapter2" class="reveal">
+  <div class="chapter">Chapter 02</div>
+  <h2>嘉豪词典</h2>
+  <p class="lead">想在嘉豪圈混，这些黑话你得会。点击词条，让它飞出来。</p>
+  <div class="dictGrid" id="dictGrid"></div>
+</section>
+
+<!-- ============ 第3章 实力认证 ============ -->
+<section id="power">
+  <div class="wrap reveal">
+    <div class="chapter">Chapter 03</div>
+    <h2>实力认证 · 本尊出镜</h2>
+    <p class="lead">这就是 Pzz 本尊的珍贵影像。画质糊到妈都不认识，但那份"清晰的实力"扑面而来。拖动滑块试图修复画质 —— 你会发现，糊是一种态度，不是缺陷。</p>
+
+    <div class="powerGrid">
+      <div id="vidStage">
+        <div class="badge" id="qualityBadge">画质 0%</div>
+        <video id="mainVid" src="模糊的画质，清晰的的实力.mp4" muted loop playsinline></video>
+        <div class="blurNote" id="blurNote">模糊的画质 · 清晰的实力</div>
+      </div>
+
+      <div class="ctrl">
+        <label>🔧 画质修复滑块 <span id="fixVal" style="color:#ff2d78">0%</span></label>
+        <input type="range" id="fixSlider" min="0" max="100" value="0">
+        <label>⏱ 逐帧回放（拖动查看"实力"瞬间）</label>
+        <input type="range" id="scrub" min="0" max="100" value="0">
+        <div class="btns">
+          <button class="ghost" id="playPause">⏸ 暂停</button>
+          <button class="ghost" id="loopBtn">🔁 循环中</button>
+        </div>
+        <div class="verdict" id="verdict">当前结论：画质虽糊，气场全开。建议直接封神。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第4章 人格测试 ============ -->
+<section id="chapter4" class="reveal">
+  <div class="chapter">Chapter 04</div>
+  <h2>嘉豪人格测试</h2>
+  <p class="lead">五道题，测出你体内的嘉豪浓度。请诚实作答 —— 嘉豪从不说谎（除了装酷的时候）。</p>
+  <div id="quizBox"></div>
+  <div class="btns"><button id="quizBtn" class="pink">🧪 生成我的嘉豪画像</button></div>
+  <div id="quizResult"></div>
+</section>
+
+<!-- ============ 第5章 语录墙 ============ -->
+<section id="chapter6" class="reveal">
+  <div class="chapter">Chapter 05</div>
+  <h2>嘉豪语录墙</h2>
+  <p class="lead">点一句话，让它上屏。也可以在页面任意位置点击，随机召唤嘉豪语录。</p>
+  <div id="wall"></div>
+  <div class="btns"><button id="rainBtn" class="ghost">🌧 外面雨停了</button></div>
+</section>
+
+<!-- ============ 终章 ============ -->
+<section id="finale" class="reveal">
+  <div class="chapter">Finale</div>
+  <h2>别豪了，真的</h2>
+  <p class="lead" style="margin:0 auto;">当"嘉豪"从调侃变成标签，当与众不同就要被喊一声"嘉豪"——<br>或许我们该问的不是"你怎么这么豪"，而是"我们为什么容不下不豪的人"。</p>
+  <div class="btns" style="justify-content:center;margin-top:40px;">
+    <button id="finaleBtn" class="pink">💥 按下这个按钮，Pzz 就再也别豪了</button>
+  </div>
+</section>
+
+<div id="flash"></div>
+<div id="toast"></div>
+
+<script>
+/* ============ 工具 ============ */
+const $ = s => document.querySelector(s);
+const rnd = a => a[Math.floor(Math.random()*a.length)];
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2000);}
+
+/* ============ 雨 ============ */
+const raincv = $('#raincv'), rctx = raincv.getContext('2d');
+let drops=[], rainOn=true;
+const RAIN_S=0.5; /* 半分辨率渲染，像素量降到 1/4 */
+function sizeRain(){
+  raincv.width=Math.max(1,Math.floor(innerWidth*RAIN_S));
+  raincv.height=Math.max(1,Math.floor(innerHeight*RAIN_S));
+  drops=Array.from({length:Math.floor(raincv.width/11)},()=>({x:Math.random()*raincv.width,y:Math.random()*raincv.height,
+    l:5+Math.random()*10,v:3+Math.random()*5,o:.15+Math.random()*.5}));}
+sizeRain();addEventListener('resize',sizeRain);
+let lastRain=0;
+function drawRain(t){
+  requestAnimationFrame(drawRain);
+  if(document.hidden)return;
+  if(t-lastRain<33)return; /* 约 30fps，绘制量减半 */
+  lastRain=t;
+  rctx.clearRect(0,0,raincv.width,raincv.height);
+  if(rainOn){rctx.lineWidth=1.2;
+    for(const d of drops){rctx.strokeStyle=`rgba(150,220,255,${d.o})`;rctx.beginPath();
+      rctx.moveTo(d.x,d.y);rctx.lineTo(d.x-1.4,d.y+d.l);rctx.stroke();
+      d.y+=d.v;d.x-=.7;if(d.y>raincv.height){d.y=-20;d.x=Math.random()*raincv.width;}}}
+}
+requestAnimationFrame(drawRain);
+
+/* ============ 语录 ============ */
+const QUOTES=["隔壁班的嘉豪又来了","全黑卫衣 + 3D口罩 = 嘉豪套装","能走慢动作，绝不正常走","雨中漫步，谁懂",
+  "虚空打碟 · The Spectre","你别豪了行不行","这波是纯嘉豪","眼神要冷，动作要慢","我不是装，我是天赋",
+  "帽子必戴，头必露一半","嘉豪文学：我不是名字，是灵魂","隔壁班梦琪在看我","沉默，是今晚的康桥",
+  "Pzz，你豪起来了","走路带风，风都是黑的","抽象，太抽象了","这很嘉豪","低调，我是低调的嘉豪",
+  "BGM一响，全场静默","我是光，我是电，我是嘉豪","糊是一种态度","清晰的实力，模糊的人生"];
+const PINK_QUOTES=["嘉欣路过，表示很赞","妹妹嘉欣上线了","嘉豪嘉欣，绝配","梦琪：嘉豪你慢点走","别豪了，真的别豪了"];
+function spawnQuote(text,x,y,pink){
+  const el=document.createElement('div');el.className='quote'+(pink?' pink':'');el.textContent=text;
+  el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--r',(Math.random()*14-7).toFixed(1)+'deg');
+  document.body.appendChild(el);
+  const all=document.body.getElementsByClassName('quote');
+  while(all.length>30)all[0].remove();
+  setTimeout(()=>el.remove(),2600);}
+
+/* ============ 状态 ============ */
+let isJiahao=false, meter=0, clickStreak=0, streakTimer=null, keyBuf='';
+function setMeter(v){meter=Math.max(0,Math.min(100,v));$('#hudMeter').textContent=Math.round(meter);}
+
+/* ============ 滚动进度 + reveal + 圆点导航 ============ */
+let progTick=false;
+const progEl=$('#progress');
+addEventListener('scroll',()=>{
+  if(progTick)return;progTick=true;
+  requestAnimationFrame(()=>{
+    const h=document.documentElement;
+    progEl.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    progTick=false;
+  });
+},{passive:true});
+
+/* Hero 滚动淡出 + 下滑引导，与第一章自然衔接 */
+const heroInner=$('.heroInner'), scrollCue=$('#scrollCue');
+let heroTick=false;
+addEventListener('scroll',()=>{
+  if(heroTick)return;heroTick=true;
+  requestAnimationFrame(()=>{
+    const y=window.scrollY, h=innerHeight;
+    if(y<h*1.1){
+      const p=Math.min(1,y/(h*0.85));
+      heroInner.style.opacity=String(1-p);
+      heroInner.style.transform='translateY('+(y*0.3).toFixed(1)+'px)';
+    }
+    heroTick=false;
+  });
+},{passive:true});
+scrollCue.onclick=()=>{const t=$('#chapter1');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});};
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+const dots=[...document.querySelectorAll('#dotnav a')];
+dots.forEach(a=>a.onclick=e=>{e.preventDefault();
+  const t=document.getElementById(a.dataset.t);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+const secObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    dots.forEach(a=>a.classList.toggle('on',a.dataset.t===e.target.id));
+  }
+}),{rootMargin:'-45% 0px -45% 0px',threshold:0});
+document.querySelectorAll('section').forEach(s=>secObs.observe(s));
+
+/* 已移除吸附逻辑：改为完全自由滚动，靠右侧圆点导航跳转 */
+
+/* ============ 变身 ============ */
+const wrap=$('#portraitWrap');
+const STATS=[['#m1','#b1',100],['#m2','#b2',92],['#m3','#b3',88],['#m4','#b4',96]];
+function setStats(p){STATS.forEach(([n,b,mx])=>{const v=Math.round(mx*p);$(n).textContent=v;$(b).style.width=v+'%';});}
+setStats(0);
+function transform(){
+  if(isJiahao)return;isJiahao=true;
+  wrap.classList.add('transforming');
+  $('#flash').classList.add('go');setTimeout(()=>$('#flash').classList.remove('go'),600);
+  $('#title').classList.add('shake');wrap.classList.add('shakeit');
+  setTimeout(()=>{$('#title').classList.remove('shake');wrap.classList.remove('shakeit');},900);
+  let s=0;const t=setInterval(()=>{s++;setStats(s/25);setMeter(s*4);
+    if(s>=25){clearInterval(t);wrap.classList.remove('transforming');wrap.classList.add('transformed');
+      $('#nameplate').textContent='嘉豪 · 装酷中';$('#modeTxt').textContent='JIAHAO';
+      $('#transformBtn').textContent='💥 已经豪了';danmuBurst();boom();toast('嘉豪化完成 ✅');}},36);
+  ["启动嘉豪化…","加载全黑卫衣…","佩戴3D口罩…","眼神降温中…","慢动作模块加载…","嘉豪化完成 ✅"]
+    .forEach((x,i)=>setTimeout(()=>spawnQuote(x,innerWidth/2,innerHeight/2+(i%2?30:-30),i>3),i*360));
+}
+function boom(){for(let i=0;i<26;i++)setTimeout(()=>{const a=Math.random()*Math.PI*2,r=120+Math.random()*260;
+  spawnQuote(["嘉豪!","豪!","Pzz别豪了","抽象","中二"][i%5],innerWidth/2+Math.cos(a)*r,innerHeight/2+Math.sin(a)*r,i%2===0);},i*45);}
+function reset(){if(!isJiahao)return;isJiahao=false;wrap.classList.remove('transformed');
+  $('#nameplate').textContent='Pzz · 正常人';$('#modeTxt').textContent='PZZ';
+  $('#transformBtn').textContent='⚡ 一键嘉豪化';setStats(0);setMeter(0);
+  $('#flash').classList.add('go');setTimeout(()=>$('#flash').classList.remove('go'),600);
+  spawnQuote('Pzz 回归正常人',innerWidth/2,innerHeight/2);}
+$('#transformBtn').onclick=e=>{e.stopPropagation();isJiahao?reset():transform();};
+$('#resetBtn').onclick=e=>{e.stopPropagation();reset();};
+wrap.addEventListener('mouseenter',()=>wrap.classList.add('hovering'));
+wrap.addEventListener('mouseleave',()=>wrap.classList.remove('hovering'));
+wrap.onclick=e=>{e.stopPropagation();
+  if(!isJiahao)spawnQuote('还没豪呢，点那个按钮',e.clientX,e.clientY);
+  else{spawnQuote('别戳了，再戳就抽象了',e.clientX,e.clientY,true);
+    wrap.classList.add('shakeit');setTimeout(()=>wrap.classList.remove('shakeit'),500);}};
+
+/* ============ 词典 ============ */
+const DICT=[
+  ['嘉豪套装','全黑连帽卫衣 + 黑色3D立体口罩，帽子必戴，头必露一半。','穿搭'],
+  ['虚空打碟','空气当DJ台，双手在空中划出并不存在的电音节拍。','动作'],
+  ['慢动作走位','能走慢动作绝不正常走，走廊就是他的T台。','动作'],
+  ['雨中漫步','下雨不躲伞，忧郁值+100，是嘉豪的专属BGM场景。','场景'],
+  ['眼神降温','动作可以夸张，但眼神必须冷到结冰。','神态'],
+  ['出场曲','《The Spectre》，BGM一响，全场静默。','音效'],
+  ['嘉豪指数','衡量一个人中二浓度的核心指标，满值100%。','数据'],
+  ['隔壁班的嘉豪','每个学校、每个班，都一定存在一个。','社会学'],
+  ['嘉欣','嘉豪的女性版/妹妹，一样的中二，一样的黑卫衣。','衍生'],
+  ['糊即态度','画质可以糊，气场不能输。','哲学']
+];
+const dg=$('#dictGrid');
+DICT.forEach(([t,d,tag],i)=>{
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=`<div class="tag">${tag}</div><h3>${t}</h3><p>${d}</p>`;
+  c.onclick=e=>{e.stopPropagation();spawnQuote(t,e.clientX,e.clientY,i%2===0);};
+  dg.appendChild(c);
+});
+
+/* ============ 实力认证（视频全程静音） ============ */
+const mainVid=$('#mainVid');
+mainVid.muted=true;
+mainVid.play().catch(()=>{});
+const fixSlider=$('#fixSlider');
+function applyFix(){
+  const v=+fixSlider.value;
+  const blur=(1-v/100)*14;
+  mainVid.style.filter=`blur(${blur}px) saturate(${1+v/100*.4}) contrast(${1+v/100*.3})`;
+  $('#fixVal').textContent=v+'%';
+  $('#qualityBadge').textContent='画质 '+v+'%';
+  $('#verdict').textContent =
+    v<25 ? '当前结论：糊是灵魂。这画质，是故意的高级感。' :
+    v<60 ? '当前结论：稍微清晰了一点，但"实力"依然盖过画质。' :
+    v<95 ? '当前结论：画质提升中…你确定要看清吗？可能承受不住。' :
+           '当前结论：警告！画质已清晰，实力过于耀眼，请佩戴护目镜。';
+  if(v>=95)toast('⚠️ 画质过高，实力外溢！');
+}
+fixSlider.oninput=applyFix;applyFix();
+const scrub=$('#scrub');
+scrub.oninput=()=>{if(mainVid.duration)mainVid.currentTime=mainVid.duration*scrub.value/100;};
+mainVid.addEventListener('timeupdate',()=>{if(mainVid.duration)scrub.value=mainVid.currentTime/mainVid.duration*100;});
+let mainVidUserPaused=false;
+$('#playPause').onclick=e=>{e.stopPropagation();
+  if(mainVid.paused){mainVidUserPaused=false;mainVid.play();e.target.textContent='⏸ 暂停';}
+  else{mainVidUserPaused=true;mainVid.pause();e.target.textContent='▶ 播放';}};
+let looping=true;
+$('#loopBtn').onclick=e=>{e.stopPropagation();looping=!looping;mainVid.loop=looping;
+  e.target.textContent=looping?'🔁 循环中':'➡ 单次';};
+
+/* ============ 人格测试 ============ */
+const QUIZ=[
+  {q:'早上出门第一件事？',o:[['戴帽子/戴口罩',3],['照镜子确认帅度',2],['正常出门',0]]},
+  {q:'突然下雨了，你？',o:[['雨中漫步，忧郁加分',3],['慢走，淋一点',1],['拔腿就跑',0]]},
+  {q:'在走廊里的走路速度？',o:[['慢动作，走位要帅',3],['正常速度',1],['快步流星',0]]},
+  {q:'听到《The Spectre》？',o:[['立刻虚空打碟',3],['跟着点头',1],['没听过',0]]},
+  {q:'有人盯着你看？',o:[['保持高冷眼神回敬',3],['微笑一下',1],['低头看手机',0]]}
+];
+const ans=new Array(QUIZ.length).fill(null);
+const qb=$('#quizBox');
+QUIZ.forEach((item,qi)=>{
+  const d=document.createElement('div');d.className='q';
+  d.innerHTML=`<div class="qt">Q${qi+1}. ${item.q}</div>`;
+  const ow=document.createElement('div');ow.className='opts';
+  item.o.forEach(([txt,pt])=>{
+    const o=document.createElement('div');o.className='opt';o.textContent=txt;
+    o.onclick=e=>{e.stopPropagation();
+      ow.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');ans[qi]=pt;};
+    ow.appendChild(o);
+  });
+  d.appendChild(ow);qb.appendChild(d);
+});
+$('#quizBtn').onclick=e=>{e.stopPropagation();
+  if(ans.includes(null)){toast('还有题没答呢，嘉豪不能半途而废');return;}
+  const score=ans.reduce((a,b)=>a+b,0);
+  const ranks=[
+    [0,3,'正常人 · Pzz','你体内几乎没有嘉豪基因。恭喜你，你还能正常走路、正常说话、正常撑伞。','#7ef9ff'],
+    [4,7,'半个嘉豪','你偶尔抽象，偶尔正常。属于"被点名会害羞，但心里有点爽"的类型。','#9ff4ff'],
+    [8,11,'标准嘉豪','帽子已经焊在头上了。建议检查一下你的衣柜，是不是全是黑色。','#ffd0e4'],
+    [12,15,'嘉豪本体','别豪了。你不是在装酷，你就是酷本身（但别人觉得你抽象）。','#ff2d78']
+  ];
+  const r=ranks.find(x=>score>=x[0]&&score<=x[1]);
+  const el=$('#quizResult');
+  el.innerHTML=`<div class="score">${score}/15</div><div class="rank" style="color:${r[3]}">${r[2]}</div><div class="desc">${r[1]}</div>`;
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  setMeter(Math.round(score/15*100));
+  if(score>=12&&!isJiahao)setTimeout(transform,400);
+  toast('嘉豪浓度：'+Math.round(score/15*100)+'%');
+};
+
+/* ============ 语录墙 ============ */
+const wall=$('#wall');
+QUOTES.slice(0,16).forEach(t=>{
+  const b=document.createElement('div');b.className='wq';b.textContent=t;
+  b.onclick=e=>{e.stopPropagation();
+    const d=document.createElement('div');d.className='danmu';d.textContent=t;
+    d.style.color=rnd(['#00f0ff','#ff2d78','#9ff4ff','#ffd0e4','#7ef9ff']);
+    d.style.top=(Math.random()*70+15)+'vh';d.style.animationDuration=(4.5+Math.random()*3)+'s';
+    document.body.appendChild(d);setTimeout(()=>d.remove(),8000);
+    setMeter(meter+3);};
+  wall.appendChild(b);
+});
+
+/* ============ 雨停按钮 ============ */
+const rainBtn=$('#rainBtn');
+rainBtn.onclick=e=>{e.stopPropagation();rainOn=!rainOn;
+  raincv.classList.toggle('hidden',!rainOn);
+  rainBtn.textContent=rainOn?'🌧 外面雨停了':'☔ 让他淋雨';
+  $('#rainTxt').textContent=rainOn?'ON':'OFF';
+  if(!rainOn){spawnQuote('雨停了，快回教室吧嘉豪',innerWidth/2,innerHeight*.3,true);setMeter(Math.max(0,meter-25));}
+  else spawnQuote('雨中漫步，谁懂',innerWidth/2,innerHeight*.3);};
+
+/* ============ 全局点击 / 尾迹 / 弹幕 ============ */
+document.addEventListener('click',e=>{
+  if(e.target.closest('button')||e.target.closest('.opt')||e.target.closest('.card')||e.target.closest('.wq')||e.target.closest('#dotnav'))return;
+  const pink=Math.random()<.3;
+  spawnQuote(rnd(pink?PINK_QUOTES:QUOTES),e.clientX,e.clientY,pink);
+  if(isJiahao)setMeter(meter+4);
+  clickStreak++;clearTimeout(streakTimer);streakTimer=setTimeout(()=>clickStreak=0,1200);
+  if(clickStreak>=5){clickStreak=0;virtualDJ();}
+});
+document.addEventListener('mousemove',e=>{
+  if(Math.random()>.8)return;
+  const t=document.createElement('div');t.className='trail';
+  t.style.left=(e.clientX-4)+'px';t.style.top=(e.clientY-4)+'px';
+  t.style.background=Math.random()<.3?'#ff2d78':'#00f0ff';
+  t.style.boxShadow='0 0 12px '+t.style.background;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),520);
+},{passive:true});
+const DANMU=["Pzz别豪了","隔壁班的嘉豪","虚空打碟","雨中漫步","慢动作走位","全黑卫衣","3D口罩","中二之魂",
+  "抽象大师","嘉豪嘉豪嘉豪","别豪了求你了","The Spectre","眼神降温","装酷失败","嘉欣在看","糊即态度"];
+function danmuBurst(){for(let i=0;i<18;i++)setTimeout(()=>{
+  const d=document.createElement('div');d.className='danmu';d.textContent=rnd(DANMU);
+  d.style.color=rnd(['#00f0ff','#ff2d78','#9ff4ff','#ffd0e4','#7ef9ff']);
+  d.style.top=(Math.random()*80+8)+'vh';d.style.animationDuration=(4.5+Math.random()*3.5)+'s';
+  document.body.appendChild(d);setTimeout(()=>d.remove(),8500);},i*180);}
+function virtualDJ(){
+  let n=0;const iv=setInterval(()=>{document.body.style.filter=`hue-rotate(${n*40}deg) saturate(${1+n*.15})`;
+    spawnQuote(rnd(['♪ The Spectre ♪','虚空打碟!','左手右手一个慢动作','DJ Pzz!']),
+      innerWidth/2+(Math.random()*400-200),innerHeight/2+(Math.random()*300-150),n%2===0);
+    n++;if(n>12){clearInterval(iv);document.body.style.filter='';}},110);
+  if(isJiahao)setMeter(100);
+}
+
+/* ============ 音乐：《嘉豪进行曲》- DJ小野（本地音频，稳定播放） ============ */
+const bgm=$('#bgm'), musicBtn=$('#musicBtn'), musicBox=$('#musicBox'), vol=$('#vol');
+bgm.volume=0.7;
+const eqBars=[...document.querySelectorAll('#eq i')];
+let eqTimer=null, eqRAF=null, audioCtx=null, analyser=null, dataArr=null, srcNode=null;
+
+function eqStop(){clearInterval(eqTimer);eqTimer=null;cancelAnimationFrame(eqRAF);eqRAF=null;}
+function eqFake(on){
+  eqStop();
+  if(on)eqTimer=setInterval(()=>eqBars.forEach(b=>b.style.height=(4+Math.random()*18)+'px'),120);
+  else eqBars.forEach(b=>b.style.height='5px');
+}
+function eqReal(){
+  eqStop();
+  if(!analyser){eqFake(true);return;}
+  const arr=dataArr;
+  (function loop(){
+    analyser.getByteFrequencyData(arr);
+    eqBars.forEach((b,i)=>{
+      const idx=Math.floor(i/eqBars.length*arr.length*0.75);
+      b.style.height=Math.max(4,arr[idx]/255*22)+'px';
+    });
+    eqRAF=requestAnimationFrame(loop);
+  })();
+}
+function initAnalyser(){
+  if(analyser)return;
+  // file:// 下 Web Audio 可能输出静音，直接跳过用假均衡器
+  if(location.protocol==='file:')return;
+  try{
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    srcNode=audioCtx.createMediaElementSource(bgm);
+    analyser=audioCtx.createAnalyser();analyser.fftSize=64;
+    dataArr=new Uint8Array(analyser.frequencyBinCount);
+    srcNode.connect(analyser);analyser.connect(audioCtx.destination);
+  }catch(err){analyser=null;}
+}
+function playMusic(){
+  initAnalyser();
+  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
+  bgm.play().then(()=>{
+    musicBtn.textContent='⏸ 暂停';
+    musicBox.classList.remove('hint');
+    analyser?eqReal():eqFake(true);
+  }).catch(()=>{
+    musicBtn.textContent='▶ 播放';
+    toast('浏览器拦截了自动播放，再点一下播放键');
+  });
+}
+function pauseMusic(){bgm.pause();}
+musicBtn.onclick=e=>{e.stopPropagation();bgm.paused?playMusic():pauseMusic();};
+vol.oninput=()=>{bgm.volume=+vol.value/100;};
+bgm.addEventListener('play',()=>{musicBtn.textContent='⏸ 暂停';});
+bgm.addEventListener('pause',()=>{musicBtn.textContent='▶ 播放';eqFake(false);});
+
+/* 首次交互自动开始播放（浏览器要求用户手势） */
+function autoMusic(){if(bgm.paused)playMusic();}
+addEventListener('pointerdown',autoMusic,{once:true});
+addEventListener('keydown',autoMusic,{once:true});
+setTimeout(()=>{if(bgm.paused)musicBox.classList.add('hint');},1500);
+
+/* ============ 键盘彩蛋 ============ */
+document.addEventListener('keydown',e=>{
+  if(e.key.length!==1)return;
+  keyBuf=(keyBuf+e.key.toLowerCase()).slice(-6);
+  if(keyBuf==='jiahao'){keyBuf='';secret();}
+});
+function secret(){
+  $('#flash').classList.add('go');setTimeout(()=>$('#flash').classList.remove('go'),600);
+  for(let i=0;i<40;i++)setTimeout(()=>spawnQuote(rnd(['嘉','豪','J','H','豪!']),
+    Math.random()*innerWidth,Math.random()*innerHeight,i%2===0),i*40);
+  setMeter(100);if(!isJiahao)transform();
+  setTimeout(()=>{spawnQuote('🎉 解锁隐藏成就：嘉豪本体',innerWidth/2,innerHeight/2,true);toast('🏆 隐藏成就：嘉豪本体');},900);
+}
+
+/* ============ 终章 ============ */
+$('#finaleBtn').onclick=e=>{e.stopPropagation();
+  $('#flash').classList.add('go');setTimeout(()=>$('#flash').classList.remove('go'),600);
+  for(let i=0;i<30;i++)setTimeout(()=>spawnQuote(rnd(['别豪了','真的别豪了','Pzz!','回归正常','做你自己']),
+    Math.random()*innerWidth,Math.random()*innerHeight,i%2===0),i*50);
+  document.querySelectorAll('.danmu').forEach(d=>d.remove());
+  if(isJiahao)setTimeout(reset,900);
+  toast('Pzz 终于别豪了。世界安静了。');
+};
+
+/* ============ 视频离开视口自动暂停（省解码 / 合成开销） ============ */
+const heroVid=$('#heroVid');
+const vidObs=new IntersectionObserver(es=>es.forEach(en=>{
+  const v=en.target;
+  if(en.isIntersecting){
+    if(v===heroVid||!mainVidUserPaused)v.play().catch(()=>{});
+  }else v.pause();
+}),{threshold:.02});
+vidObs.observe(heroVid);vidObs.observe(mainVid);
+
+/* ============ 时钟 ============ */
+(function tick(){const d=new Date();
+  $('#clock').textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':');
+  setTimeout(tick,1000);})();
+
+/* 开场 */
+setTimeout(()=>spawnQuote('往下滚，见证一个男人的堕落',innerWidth/2,innerHeight*.8),900);
+</script>
+</body>
+</html>
